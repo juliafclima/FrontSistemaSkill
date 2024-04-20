@@ -43,7 +43,7 @@ export default function Login() {
         navigate("/home");
       } catch (error) {
         console.error("Erro ao realizar login:", error);
-        toast.error("Erro ao logar");
+        toast.error("Senha e/ou login errados!");
       }
     } else {
       toast.info("Preencha todos os campos");

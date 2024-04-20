@@ -42,6 +42,7 @@ export const CardContainer = styled.div`
 export const CardImage = styled.img`
   width: 80%;
   height: 100px;
+  margin-top: 10px;
 `;
 
 export const CardTitle = styled.h1`

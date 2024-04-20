@@ -12,6 +12,7 @@ import { Navigate, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Button from "../../components/forms/button";
 import { IoIosLogOut } from "react-icons/io";
+import { RiDeleteBin6Line } from "react-icons/ri";
 
 type Skill = {
   id: string;
@@ -71,6 +72,14 @@ export default function Home() {
       <MainContainer>
         {userSkills.map((skill) => (
           <CardContainer key={skill.id}>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "flex-end",
+              }}
+            >
+              <RiDeleteBin6Line />
+            </div>
             <div style={{ display: "flex", justifyContent: "center" }}>
               <CardImage src={skill.url} alt="" />
             </div>

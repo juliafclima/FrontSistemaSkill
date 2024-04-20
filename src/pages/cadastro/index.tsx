@@ -38,7 +38,7 @@ export default function Cadastro() {
         }, 2500);
       } catch (error) {
         console.error("Erro ao cadastrar:", error);
-        toast.error("Erro ao cadastrar");
+        toast.error("Usuario já cadastrado!");
         setLoading(false);
       }
     } else {
