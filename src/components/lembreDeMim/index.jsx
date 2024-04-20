@@ -1,5 +1,3 @@
-import React from "react";
-
 import { Container, Label, Input } from "./style";
 
 function LembrarCheckbox({ lembrarUsuario, onChange }) {

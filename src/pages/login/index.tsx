@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+
 import Input from "../../components/forms/input";
 import Button from "../../components/forms/button";
-import { useNavigate } from "react-router-dom";
 import { postLogin } from "../../server/LoginService";
-import { Container, FormContainer, StyledLink, Title } from "./style";
 import LembrarCheckbox from "../../components/lembreDeMim";
-import { ToastContainer, toast } from "react-toastify";
+import { Container, FormContainer, StyledLink, Title } from "./style";
 
 export default function Login() {
   const [username, setUsername] = useState("");

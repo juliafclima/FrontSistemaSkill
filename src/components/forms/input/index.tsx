@@ -1,5 +1,4 @@
 import React from "react";
-import { colors } from "../../../global/styles/theme";
 
 interface InputProps {
   placeholder: string;

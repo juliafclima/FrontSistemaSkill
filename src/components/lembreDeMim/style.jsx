@@ -1,7 +1,5 @@
 import styled from "styled-components";
 
-import { Colors } from "../../global/styles/theme";
-
 export const Container = styled.div`
   display: flex;
   justify-content: flex-end;
@@ -11,7 +9,7 @@ export const Container = styled.div`
 
 export const Label = styled.span`
   font-size: 16px;
-  color: "lightgray";
+  color: lightgray;
   margin-left: 10px;
 `;
 

@@ -1,4 +1,9 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
+import { Navigate, useNavigate } from "react-router-dom";
+import { IoIosLogOut } from "react-icons/io";
+import { RiDeleteBin6Line } from "react-icons/ri";
+
 import { Editable } from "../../components/level/LevelEditavel";
 import {
   CardContainer,
@@ -8,11 +13,7 @@ import {
   Container,
   MainContainer,
 } from "./style";
-import { Navigate, useNavigate } from "react-router-dom";
-import axios from "axios";
 import Button from "../../components/forms/button";
-import { IoIosLogOut } from "react-icons/io";
-import { RiDeleteBin6Line } from "react-icons/ri";
 
 type Skill = {
   id: string;

@@ -1,6 +1,6 @@
 import { useState } from "react";
-import styled from "styled-components";
 import { FaPencilAlt } from "react-icons/fa";
+import styled from "styled-components";
 
 type EditableProps = {
   text: string;

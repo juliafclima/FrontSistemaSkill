@@ -1,11 +1,12 @@
 import { useState } from "react";
-import Button from "../../components/forms/button";
-import Input from "../../components/forms/input";
 import { useNavigate } from "react-router-dom";
-import { postCadastro } from "../../server/LoginService";
-import { Container, FormContainer, StyledLink, Title } from "./style";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
+import { Container, FormContainer, StyledLink, Title } from "./style";
+import Button from "../../components/forms/button";
+import Input from "../../components/forms/input";
+import { postCadastro } from "../../server/LoginService";
 
 export default function Cadastro() {
   const [login, setLogin] = useState("");

@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+
 import { colors } from "../../global/styles/theme";
 
 export const Container = styled.div`
@@ -19,7 +20,7 @@ export const FormContainer = styled.div`
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 8px;
-  background-color: #fff;
+  background-color: ${colors.white};
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   background-color: ${colors.dark};
 `;

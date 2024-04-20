@@ -1,7 +1,8 @@
 import { BrowserRouter } from "react-router-dom";
+import { ThemeProvider } from "styled-components";
+
 import AppRouter from "./routes";
 import { Provider } from "./context/context";
-import { ThemeProvider } from "styled-components";
 import theme from "./global/styles/theme";
 
 function App() {
