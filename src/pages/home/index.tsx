@@ -16,10 +16,20 @@ import {
 import Button from "../../components/forms/button";
 
 type Skill = {
-  id: string;
-  url: string;
-  nome: string;
-  descricao: string;
+  id: number;
+  level: string;
+  usuario: {
+    id: number;
+    login: string;
+    senha: string;
+    situacao: string;
+  };
+  skill: {
+    id: number;
+    nome: string;
+    descricao: string;
+    url: string;
+  };
 };
 
 export default function Home() {
@@ -29,6 +39,7 @@ export default function Home() {
 
   const handleLogout = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("userId");
     navigate("/");
   };
 
@@ -42,14 +53,25 @@ export default function Home() {
         } else {
           setTokenExists(true);
 
-          const response = await axios.get(`http://localhost:8080/skill`, {
-            headers: {
-              Authorization: token,
-            },
-          });
+          const response = await axios.get(
+            `http://localhost:8080/usuario-skill`,
+            {
+              headers: {
+                Authorization: token,
+              },
+            }
+          );
+          console.log("resposta vindo da api", response.data);
 
-          setUserSkills(response.data);
-          console.log("data", response.data);
+          const userID = Number(localStorage.getItem("userId"));
+          console.log("userID", userID);
+
+          const userSkillsFiltered = response.data.filter(
+            (skill: Skill) => skill.usuario.id === userID
+          );
+
+          setUserSkills(userSkillsFiltered);
+          console.log("usuario filtrado", userSkillsFiltered);
         }
       } catch (error) {
         console.error("Error fetching skills:", error);
@@ -82,16 +104,11 @@ export default function Home() {
               <RiDeleteBin6Line />
             </div>
             <div style={{ display: "flex", justifyContent: "center" }}>
-              <CardImage src={skill.url} alt="" />
+              <CardImage src={skill.skill.url} alt="" />
             </div>
-            <CardTitle>{skill.nome}</CardTitle>
-            <Editable
-              text="Nível 0/10"
-              placeholder="Nível: 0/10"
-              type="text"
-              onSave={() => console.log("salvar")}
-            />
-            <CardDescription>{skill.descricao}</CardDescription>
+            <CardTitle>{skill.skill.nome}</CardTitle>
+            <CardDescription>Level {skill.level}</CardDescription>
+            <CardDescription>{skill.skill.descricao}</CardDescription>
           </CardContainer>
         ))}
       </MainContainer>
