@@ -18,6 +18,20 @@ export const Provider = ({ children }) => {
     }
   }, []);
 
+  /*  const signin = (username, password) => {
+    const pessoaEncontrada = pessoas.find(
+      login => login.username === username && login.password === password,
+    );
+
+    if (pessoaEncontrada) {
+      console.log("Usuário logado");
+      setUser({ user: pessoaEncontrada.username });
+    } else {
+      console.log("Usuário não encontrado");
+      alert("Senha inválida!");
+    }
+  }; */
+
   const signin = (login, senha) => {
     const usersStorage = JSON.parse(localStorage.getItem("users_db"));
 

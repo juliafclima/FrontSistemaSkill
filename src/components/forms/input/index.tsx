@@ -1,4 +1,5 @@
 import React from "react";
+import { colors } from "../../../global/styles/theme";
 
 interface InputProps {
   placeholder: string;
@@ -20,13 +21,14 @@ const Input: React.FC<InputProps> = ({
       value={value}
       onChange={onChange}
       style={{
-        marginBottom: "8px",
+        color: "#f1f1f1",
+        marginBottom: "20px",
         padding: "8px",
         borderRadius: "4px",
-        border: "1px solid #ccc",
         outline: "none",
         fontSize: "16px",
         width: "90%",
+        backgroundColor: "#29292e",
       }}
     />
   );
