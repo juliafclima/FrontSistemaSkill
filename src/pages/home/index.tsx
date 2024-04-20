@@ -8,8 +8,8 @@ import {
   Container,
   MainContainer,
 } from "./style";
-import { getSkill } from "../../server/SkillService";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 type Skill = {
   id: string;
@@ -19,27 +19,46 @@ type Skill = {
 };
 
 export default function Home() {
+  const [skills, setSkills] = useState([]);
   const [userSkills, setUserSkills] = useState<Skill[]>([]);
   const navigate = useNavigate();
+  const [tokenExists, setTokenExists] = useState(false);
+
+  const handleLogout = () => {
+    localStorage.clear();
+    navigate("/");
+  };
 
   useEffect(() => {
-    const fetchUserSkills = async () => {
+    const fetchData = async () => {
       try {
-        const response = await getSkill();
-        const data = response.data;
-        setUserSkills(data);
+        const token = localStorage.getItem("token");
+
+        if (!token) {
+          return <Navigate to="/" />;
+        } else {
+          setTokenExists(true);
+
+          const response = await axios.get(`http://localhost:8080/skill`, {
+            headers: {
+              Authorization: token,
+            },
+          });
+
+          setUserSkills(response.data);
+          console.log("data", response.data);
+        }
       } catch (error) {
-        console.error("Erro ao buscar as skills do usuário:", error);
+        console.error("Error fetching skills:", error);
       }
     };
-
-    fetchUserSkills();
+    fetchData();
   }, []);
 
   return (
     <Container>
       <h1>Gerenciamento de Skills</h1>
-      <button onClick={() => navigate("/")}>Logout</button>
+      <button onClick={handleLogout}>Logout</button>
       <MainContainer>
         <ul>
           {userSkills.map((skill) => (

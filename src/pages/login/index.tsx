@@ -16,8 +16,7 @@ export default function Login() {
       try {
         const response = await postLogin(username, password);
 
-        console.log("response: ", response);
-        console.log("response data: ", response.data);
+        localStorage.setItem("token", response.data.token);
 
         navigate("/home");
       } catch (error) {

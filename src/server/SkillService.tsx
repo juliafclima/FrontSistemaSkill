@@ -1,13 +1,18 @@
 import axios from "axios";
 
-const getToken = () => localStorage.getItem("token");
+const getToken = () => {
+  const token = localStorage.getItem("token");
+  return token ? token : "";
+};
 
-export const axiosInstance = axios.create({
-  baseURL: "http://localhost:8080",
-  headers: {
-    Authorization: `Bearer ${getToken()}`,
-  },
-});
+const createAxiosInstance = () => {
+  return axios.create({
+    baseURL: "http://localhost:8080",
+    headers: {
+      Authorization: `Bearer ${getToken()}`,
+    },
+  });
+};
 
 interface Skill {
   nome: String;
@@ -16,17 +21,21 @@ interface Skill {
 }
 
 export const postSkill = (skill: Skill) => {
+  const axiosInstance = createAxiosInstance();
   return axiosInstance.post("/skill", skill);
 };
 
 export const getSkill = () => {
+  const axiosInstance = createAxiosInstance();
   return axiosInstance.post("/skill");
 };
 
 export const deleteSkill = (id: number) => {
+  const axiosInstance = createAxiosInstance();
   return axiosInstance.post(`/skill/${id}`);
 };
 
 export const putSkill = (id: number, skillAtualizada: Skill) => {
+  const axiosInstance = createAxiosInstance();
   return axiosInstance.put(`/skill/${id}`, skillAtualizada);
 };
