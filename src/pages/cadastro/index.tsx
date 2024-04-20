@@ -11,6 +11,7 @@ export default function Cadastro() {
   const [login, setLogin] = useState("");
   const [senha, setSenha] = useState("");
   const [confirmSenha, setConfirmSenha] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const cadastrar = async () => {
@@ -26,14 +27,19 @@ export default function Cadastro() {
       };
 
       try {
+        setLoading(true);
         await postCadastro(usuario);
 
         toast.success("Cadastrado com sucesso");
 
-        setTimeout(() => navigate("/"), 2500);
+        setTimeout(() => {
+          navigate("/");
+          setLoading(false);
+        }, 2500);
       } catch (error) {
         console.error("Erro ao cadastrar:", error);
         toast.error("Erro ao cadastrar");
+        setLoading(false);
       }
     } else {
       toast.info("Preencha todos os campos");
@@ -81,7 +87,10 @@ export default function Cadastro() {
           }}
         >
           <StyledLink to="/">Já tem conta?</StyledLink>
-          <Button onClick={cadastrar} title="Inscrever-se" />
+          <Button
+            onClick={cadastrar}
+            title={loading ? "Carregando..." : "Inscrever-se"}
+          />
         </div>
       </FormContainer>
     </Container>
