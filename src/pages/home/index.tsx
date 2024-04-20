@@ -21,6 +21,7 @@ import Button from "../../components/forms/button";
 import { putUsuarioSkill } from "../../server/LoginService";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Swal from "sweetalert2";
 
 type Skill = {
   id: number;
@@ -42,9 +43,9 @@ type Skill = {
 export default function Home() {
   const [userSkills, setUserSkills] = useState<Skill[]>([]);
   const [tokenExists, setTokenExists] = useState(false);
-  const [isEditing, setIsEditing] = useState(false);
   const [novoNivel, setNovoNivel] = useState("0/10");
   const [editingCardId, setEditingCardId] = useState<number | null>(null);
+  const [deletingSkillId, setDeletingSkillId] = useState(null);
 
   const navigate = useNavigate();
 
@@ -126,6 +127,36 @@ export default function Home() {
     }
   };
 
+  const handleDelete = async (id: number) => {
+    try {
+      const result = await Swal.fire({
+        title: "Deseja realmente apagar este card?",
+        text: "Essa ação não pode ser revertida!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Sim, apagar!",
+        cancelButtonText: "Cancelar",
+      });
+
+      if (result.isConfirmed) {
+        await axios.delete(`http://localhost:8080/usuario-skill/${id}`);
+
+        const updatedSkills = userSkills.filter((skill) => skill.id !== id);
+        setUserSkills(updatedSkills);
+
+        if (editingCardId === id) {
+          setEditingCardId(null);
+        }
+
+        toast.success("Card removido com sucesso!");
+      }
+    } catch (error) {
+      toast.error("Algo aconteceu! Não foi possível apagar.");
+    }
+  };
+
   return (
     <Container>
       <ToastContainer />
@@ -149,7 +180,11 @@ export default function Home() {
                 justifyContent: "flex-end",
               }}
             >
-              <RiDeleteBin6Line size={18} />
+              <RiDeleteBin6Line
+                size={18}
+                onClick={() => handleDelete(skill.id)}
+                style={{ cursor: "pointer" }}
+              />
             </div>
             <div style={{ display: "flex", justifyContent: "center" }}>
               <CardImage src={skill.skill.url} alt="" />
