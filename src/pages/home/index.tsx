@@ -26,7 +26,7 @@ export default function Home() {
   const [tokenExists, setTokenExists] = useState(false);
 
   const handleLogout = () => {
-    localStorage.clear();
+    localStorage.removeItem("token");
     navigate("/");
   };
 

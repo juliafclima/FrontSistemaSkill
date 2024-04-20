@@ -1,13 +1,26 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Input from "../../components/forms/input";
 import Button from "../../components/forms/button";
 import { useNavigate } from "react-router-dom";
 import { postLogin } from "../../server/LoginService";
 import { Container, FormContainer, StyledLink, Title } from "./style";
+import LembrarCheckbox from "../../components/lembreDeMim";
 
 export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [lembrarUsuario, setLembrarUsuario] = useState(false);
+
+  useEffect(() => {
+    const storedUsername = localStorage.getItem("username");
+    const storedPassword = localStorage.getItem("password");
+
+    if (storedUsername && storedPassword) {
+      setUsername(storedUsername);
+      setPassword(storedPassword);
+      setLembrarUsuario(true);
+    }
+  }, []);
 
   const navigate = useNavigate();
 
@@ -17,6 +30,14 @@ export default function Login() {
         const response = await postLogin(username, password);
 
         localStorage.setItem("token", response.data.token);
+
+        if (lembrarUsuario) {
+          localStorage.setItem("username", username);
+          localStorage.setItem("password", password);
+        } else {
+          localStorage.removeItem("username");
+          localStorage.removeItem("password");
+        }
 
         navigate("/home");
       } catch (error) {
@@ -53,6 +74,11 @@ export default function Login() {
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
+
+        <LembrarCheckbox
+          lembrarUsuario={lembrarUsuario}
+          onChange={() => setLembrarUsuario(!lembrarUsuario)}
+        />
 
         <div
           style={{
