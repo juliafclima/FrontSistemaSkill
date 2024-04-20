@@ -10,6 +10,8 @@ import {
 } from "./style";
 import { Navigate, useNavigate } from "react-router-dom";
 import axios from "axios";
+import Button from "../../components/forms/button";
+import { IoIosLogOut } from "react-icons/io";
 
 type Skill = {
   id: string;
@@ -19,7 +21,6 @@ type Skill = {
 };
 
 export default function Home() {
-  const [skills, setSkills] = useState([]);
   const [userSkills, setUserSkills] = useState<Skill[]>([]);
   const navigate = useNavigate();
   const [tokenExists, setTokenExists] = useState(false);
@@ -57,26 +58,32 @@ export default function Home() {
 
   return (
     <Container>
-      <h1>Gerenciamento de Skills</h1>
-      <button onClick={handleLogout}>Logout</button>
+      <h1 style={{ textAlign: "center" }}>Gerenciamento de Skills</h1>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "flex-end",
+        }}
+      >
+        <Button title={<IoIosLogOut />} onClick={handleLogout} />
+      </div>
+
       <MainContainer>
-        <ul>
-          {userSkills.map((skill) => (
-            <li key={skill.id}>
-              <CardContainer>
-                <CardImage src={skill.url} alt="" />
-                <CardTitle>{skill.nome}</CardTitle>
-                <Editable
-                  text="0/10"
-                  placeholder="Nível: 0/10"
-                  type="text"
-                  onSave={(newLevel) => console.log("salvar")}
-                />
-                <CardDescription>{skill.descricao}</CardDescription>
-              </CardContainer>
-            </li>
-          ))}
-        </ul>
+        {userSkills.map((skill) => (
+          <CardContainer key={skill.id}>
+            <div style={{ display: "flex", justifyContent: "center" }}>
+              <CardImage src={skill.url} alt="" />
+            </div>
+            <CardTitle>{skill.nome}</CardTitle>
+            <Editable
+              text="Nível 0/10"
+              placeholder="Nível: 0/10"
+              type="text"
+              onSave={() => console.log("salvar")}
+            />
+            <CardDescription>{skill.descricao}</CardDescription>
+          </CardContainer>
+        ))}
       </MainContainer>
     </Container>
   );
