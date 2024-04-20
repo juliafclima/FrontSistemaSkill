@@ -4,6 +4,8 @@ import Input from "../../components/forms/input";
 import { useNavigate } from "react-router-dom";
 import { postCadastro } from "../../server/LoginService";
 import { Container, FormContainer, StyledLink, Title } from "./style";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Cadastro() {
   const [login, setLogin] = useState("");
@@ -14,7 +16,7 @@ export default function Cadastro() {
   const cadastrar = async () => {
     if (senha && confirmSenha && login) {
       if (senha !== confirmSenha) {
-        alert("As senhas não coincidem");
+        toast.error("Senhas divergem");
         return;
       }
 
@@ -26,20 +28,22 @@ export default function Cadastro() {
       try {
         await postCadastro(usuario);
 
-        alert("Cadastrado com sucesso");
-        navigate("/");
+        toast.success("Cadastrado com sucesso");
+
+        setTimeout(() => navigate("/"), 2500);
       } catch (error) {
         console.error("Erro ao cadastrar:", error);
-        alert("Erro ao cadastrar");
+        toast.error("Erro ao cadastrar");
       }
     } else {
-      alert("Preencha todos os campos");
+      toast.info("Preencha todos os campos");
     }
   };
 
   return (
     <Container>
       <FormContainer>
+        <ToastContainer />
         <Title>Sistema Skill</Title>
         <Title>Cadastro</Title>
         <div

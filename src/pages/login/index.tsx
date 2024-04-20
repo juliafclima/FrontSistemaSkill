@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { postLogin } from "../../server/LoginService";
 import { Container, FormContainer, StyledLink, Title } from "./style";
 import LembrarCheckbox from "../../components/lembreDeMim";
+import { ToastContainer, toast } from "react-toastify";
 
 export default function Login() {
   const [username, setUsername] = useState("");
@@ -42,15 +43,16 @@ export default function Login() {
         navigate("/home");
       } catch (error) {
         console.error("Erro ao realizar login:", error);
-        alert("Erro ao logar");
+        toast.error("Erro ao logar");
       }
     } else {
-      alert("Preencha todos os campos");
+      toast.info("Preencha todos os campos");
     }
   };
 
   return (
     <Container>
+      <ToastContainer />
       <FormContainer>
         <Title>Sistema Skill</Title>
         <Title>Login</Title>
