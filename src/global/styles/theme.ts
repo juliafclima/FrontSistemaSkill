@@ -35,3 +35,4 @@ export const fonts = {
   regular: 500,
   bold: 700,
 };
+

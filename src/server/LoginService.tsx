@@ -19,3 +19,11 @@ export const postLogin = (username: string, password: string) => {
     password: password,
   });
 };
+
+export const getCadastro = () => {
+  return axiosInstance.get("/usuario");
+};
+
+export const getUsuarioSkill = () => {
+  return axiosInstance.get("/usuario-skill");
+};

@@ -20,7 +20,7 @@ export const Provider = ({ children }) => {
 
   /*  const signin = (username, password) => {
     const pessoaEncontrada = pessoas.find(
-      login => login.username === username && login.password === password,
+      login => login.username === username 
     );
 
     if (pessoaEncontrada) {

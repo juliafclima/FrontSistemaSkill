@@ -18,4 +18,5 @@ export const Input = styled.input`
   height: 16px;
   width: 16px;
   cursor: pointer;
+  background-color: "#5d5d65af";
 `;

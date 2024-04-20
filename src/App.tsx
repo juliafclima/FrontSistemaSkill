@@ -4,6 +4,7 @@ import { ThemeProvider } from "styled-components";
 import AppRouter from "./routes";
 import { Provider } from "./context/context";
 import theme from "./global/styles/theme";
+import "./global/styles/global.css";
 
 function App() {
   return (
