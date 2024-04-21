@@ -37,9 +37,7 @@ export default function Erro() {
   return (
     <ErroContainer>
       <ErroTitulo>404 - Página não encontrada</ErroTitulo>
-      <ErroMensagem>
-        Desculpe, a página que você está procurando não existe.
-      </ErroMensagem>
+
       <ErroAcoes>
         <ErroLinkHome to="/">Voltar para a página inicial</ErroLinkHome>
       </ErroAcoes>

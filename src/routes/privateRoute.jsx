@@ -8,7 +8,7 @@ const PrivateRoute = ({ children }) => {
     seiLaToken();
   }, []);
 
-  let token = localStorage.getItem("token");
+  let token = localStorage.getItem("idUser");
 
   if (typeof token !== "string") {
     token = String(token);
