@@ -11,6 +11,8 @@ export const Botao = styled.div`
   box-shadow: 0px 0px 20px -20px;
   cursor: pointer;
   background-color: #eba417;
+  color: ${colors.dark};
+  font-style: bolder;
   transition: all 0.2s ease-in-out 0ms;
   user-select: none;
   font-family: "Poppins", sans-serif;
@@ -20,7 +22,6 @@ export const Botao = styled.div`
 
   &:hover {
     background-color: #f2f2f2;
-    color: ${colors.primary};
     box-shadow: 0px 0px 20px -18px;
     border: 2.5px solid #eba417;
   }

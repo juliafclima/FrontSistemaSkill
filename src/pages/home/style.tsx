@@ -19,6 +19,8 @@ export const MainContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
+  justify-content: center;
+  align-items: center;
 
   @media screen and (max-width: 768px) {
     justify-content: center;
@@ -26,7 +28,7 @@ export const MainContainer = styled.div`
 `;
 
 export const CardContainer = styled.div`
-  width: calc(50% - 20px);
+  width: calc(50% - -200px);
   max-width: 150px;
   border: 1px solid #ddd;
   border-radius: 5px;

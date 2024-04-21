@@ -1,8 +1,8 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Navigate } from "react-router-dom";
 import styled from "styled-components";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 interface ModalAddSkillProps {
   isOpen: boolean;
   onClose: () => void;
@@ -23,6 +23,7 @@ const ModalAddSkill: React.FC<ModalAddSkillProps> = ({
 }) => {
   const [userSkills, setUserSkills] = useState<Skill[]>([]);
   const [selectedSkillId, setSelectedSkillId] = useState<number | null>(null);
+  const [selectedSkills, setSelectedSkills] = useState<number[]>([]);
 
   const fetchUserSkills = async () => {
     const response = await axios.get(`http://localhost:8080/skill`);
@@ -48,6 +49,12 @@ const ModalAddSkill: React.FC<ModalAddSkillProps> = ({
 
   const handleSubmit = async () => {
     if (selectedSkillId !== null) {
+      // Verifica se o ID da habilidade já está presente em selectedSkills
+      if (selectedSkills.includes(selectedSkillId)) {
+        toast.error("Você já adicionou esta skill.");
+        return; // Impede que a habilidade seja adicionada novamente
+      }
+
       const userID = Number(localStorage.getItem("userId"));
 
       try {
@@ -58,6 +65,8 @@ const ModalAddSkill: React.FC<ModalAddSkillProps> = ({
         });
 
         onSave();
+
+        setSelectedSkills([...selectedSkills, selectedSkillId]);
 
         fetchUserSkills();
       } catch (error) {
@@ -71,6 +80,7 @@ const ModalAddSkill: React.FC<ModalAddSkillProps> = ({
     <>
       {isOpen && (
         <ModalBackground onClick={onClose}>
+          <ToastContainer />
           <ModalContent onClick={(e) => e.stopPropagation()}>
             <h2 style={{ textAlign: "center", color: "#000" }}>
               Adicionar Skill
