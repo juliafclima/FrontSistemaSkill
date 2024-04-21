@@ -22,6 +22,7 @@ import { putUsuarioSkill } from "../../server/LoginService";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Swal from "sweetalert2";
+import ModalAddSkill from "./modal";
 
 type Skill = {
   id: number;
@@ -45,9 +46,54 @@ export default function Home() {
   const [tokenExists, setTokenExists] = useState(false);
   const [novoNivel, setNovoNivel] = useState("0/10");
   const [editingCardId, setEditingCardId] = useState<number | null>(null);
-  const [deletingSkillId, setDeletingSkillId] = useState(null);
+  const [showAddSkillModal, setShowAddSkillModal] = useState(false);
 
   const navigate = useNavigate();
+
+  const openAddSkillModal = () => {
+    setShowAddSkillModal(true);
+  };
+
+  const closeAddSkillModal = () => {
+    setShowAddSkillModal(false);
+  };
+
+  const handleSaveNewSkill = async () => {
+    await fetchUserSkills();
+  };
+
+  const fetchUserSkills = async () => {
+    try {
+      const token = localStorage.getItem("token");
+
+      if (!token) {
+        return <Navigate to="/" />;
+      } else {
+        const response = await axios.get(
+          `http://localhost:8080/usuario-skill`,
+          {
+            headers: {
+              Authorization: token,
+            },
+          }
+        );
+
+        const userID = Number(localStorage.getItem("userId"));
+
+        const userSkillsFiltered = response.data.filter(
+          (skill: Skill) => skill.usuario.id === userID
+        );
+
+        setUserSkills(userSkillsFiltered);
+      }
+    } catch (error) {
+      console.error("Error fetching skills:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchUserSkills();
+  }, []);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -166,10 +212,18 @@ export default function Home() {
           display: "flex",
           alignItems: "flex-end",
           justifyContent: "flex-end",
+          gap: 20,
         }}
       >
-        <Button title={<IoIosLogOut />} onClick={handleLogout} />
+        <Button title="Adicionar Skill" onClick={openAddSkillModal} />
+        <Button title="Sair" onClick={handleLogout} />
       </div>
+
+      <ModalAddSkill
+        isOpen={showAddSkillModal}
+        onClose={closeAddSkillModal}
+        onSave={handleSaveNewSkill}
+      />
 
       <MainContainer>
         {userSkills.map((skill) => (

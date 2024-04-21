@@ -36,7 +36,7 @@ export default function Cadastro() {
         setTimeout(() => {
           navigate("/");
           setLoading(false);
-        }, 2500);
+        }, 1500);
       } catch (error) {
         console.error("Erro ao cadastrar:", error);
         toast.error("Usuario já cadastrado!");
