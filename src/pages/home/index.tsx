@@ -43,6 +43,7 @@ export default function Home() {
   const [novoNivel, setNovoNivel] = useState("");
   const [editingCardId, setEditingCardId] = useState<number | null>(null);
   const [showAddSkillModal, setShowAddSkillModal] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const navigate = useNavigate();
 
@@ -59,6 +60,7 @@ export default function Home() {
   };
 
   const fetchUserSkills = async () => {
+    setIsLoading(true);
     try {
       const token = localStorage.getItem("token");
 
@@ -84,6 +86,8 @@ export default function Home() {
       }
     } catch (error) {
       console.error("Error fetching skills:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -249,11 +253,11 @@ export default function Home() {
                   placeholder="Novo nível"
                 />
                 <SaveButton onClick={() => handleSave(skill.id)}>
-                  <FaSave color="white" size={18} />
+                  <FaSave color="black" size={18} />
                 </SaveButton>
               </ContainerEdicao>
             ) : (
-              <div className="category">
+              <div className="category" onClick={() => handleEdit(skill.id)}>
                 <span className="name">{skill.level}</span>
                 /10 <FaPencilAlt size={16} />
               </div>
