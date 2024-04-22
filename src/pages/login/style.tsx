@@ -20,6 +20,8 @@ export const Title = styled.h1`
   margin-bottom: 40px;
   text-align: center;
   text-transform: uppercase;
+  text-shadow: 4px 3px 0px #7a7a7a, 40px -11px 2px rgba(206, 89, 55, 0);
+  color: #ffffff;
 `;
 
 export const StyledLink = styled(Link)`

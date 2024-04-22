@@ -9,7 +9,11 @@ export const Container = styled.div`
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  background-color: ${colors.dark};
+  background-image: linear-gradient(
+    180.2deg,
+    rgba(30, 33, 48, 1) 6.8%,
+    rgba(74, 98, 110, 1) 131%
+  );
   color: ${colors.light};
   margin: -8px;
 `;

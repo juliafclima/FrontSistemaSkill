@@ -206,7 +206,19 @@ export default function Home() {
   return (
     <Container>
       <ToastContainer />
-      <h1 style={{ textAlign: "center" }}>Gerenciamento de Skills</h1>
+      <h1
+        style={{
+          textAlign: "center",
+          color: "#d9d9d9",
+          textShadow:
+            "-1px -1px 1px rgba(255,255,255,.1), 1px 1px 1px rgba(0,0,0,.5)",
+          fontSize: "31px",
+          letterSpacing: "3px",
+          wordSpacing: "3.2px",
+        }}
+      >
+        Gerenciamento de Skills
+      </h1>
       <div
         style={{
           display: "flex",
@@ -215,7 +227,7 @@ export default function Home() {
           gap: 20,
         }}
       >
-        <Button title="Adicionar Skill" onClick={openAddSkillModal} />
+        <Button title="Adicionar" onClick={openAddSkillModal} />
         <Button title="Sair" onClick={handleLogout} />
       </div>
 
