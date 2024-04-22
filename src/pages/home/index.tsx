@@ -237,51 +237,57 @@ export default function Home() {
         onSave={handleSaveNewSkill}
       />
 
-      <MainContainer>
-        {userSkills.map((skill) => (
-          <div className="card" key={skill.id}>
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "flex-end",
-              }}
-            >
-              <RiDeleteBin6Line
-                size={18}
-                onClick={() => handleDelete(skill.id)}
-                style={{ cursor: "pointer", color: "black", marginBottom: 5 }}
-              />
-            </div>
-            <div className="card-image">
-              <CardImage src={skill.skill.url} alt="" />
-            </div>
-
-            {editingCardId === skill.id ? (
-              <ContainerEdicao>
-                <InputField
-                  type="number"
-                  value={novoNivel}
-                  onChange={(e) => setNovoNivel(e.target.value)}
-                  placeholder="Novo nível"
+      {userSkills.length === 0 ? (
+        <p style={{ textAlign: "center", marginTop: "20px" }}>
+          Deseja cadastrar alguma skill?
+        </p>
+      ) : (
+        <MainContainer>
+          {userSkills.map((skill) => (
+            <div className="card" key={skill.id}>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "flex-end",
+                }}
+              >
+                <RiDeleteBin6Line
+                  size={18}
+                  onClick={() => handleDelete(skill.id)}
+                  style={{ cursor: "pointer", color: "black", marginBottom: 5 }}
                 />
-                <SaveButton onClick={() => handleSave(skill.id)}>
-                  <FaSave color="black" size={18} />
-                </SaveButton>
-              </ContainerEdicao>
-            ) : (
-              <div className="category" onClick={() => handleEdit(skill.id)}>
-                <span className="name">{skill.level}</span>
-                /10 <FaPencilAlt size={16} />
               </div>
-            )}
+              <div className="card-image">
+                <CardImage src={skill.skill.url} alt="" />
+              </div>
 
-            <div className="heading">
-              {skill.skill.nome}
-              <div className="author">{skill.skill.descricao}</div>
+              {editingCardId === skill.id ? (
+                <ContainerEdicao>
+                  <InputField
+                    type="number"
+                    value={novoNivel}
+                    onChange={(e) => setNovoNivel(e.target.value)}
+                    placeholder="Nº"
+                  />
+                  <SaveButton onClick={() => handleSave(skill.id)}>
+                    <FaSave color="black" size={18} />
+                  </SaveButton>
+                </ContainerEdicao>
+              ) : (
+                <div className="category" onClick={() => handleEdit(skill.id)}>
+                  <span className="name">{skill.level}</span>
+                  /10 <FaPencilAlt size={16} />
+                </div>
+              )}
+
+              <div className="heading">
+                {skill.skill.nome}
+                <div className="author">{skill.skill.descricao}</div>
+              </div>
             </div>
-          </div>
-        ))}
-      </MainContainer>
+          ))}
+        </MainContainer>
+      )}
     </Container>
   );
 }
