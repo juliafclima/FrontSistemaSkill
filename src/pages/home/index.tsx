@@ -45,6 +45,10 @@ export default function Home() {
   const [showAddSkillModal, setShowAddSkillModal] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   const navigate = useNavigate();
 
   const openAddSkillModal = () => {
@@ -55,8 +59,8 @@ export default function Home() {
     setShowAddSkillModal(false);
   };
 
-  const handleSaveNewSkill = async () => {
-    await fetchUserSkills();
+  const handleSaveNewSkill = () => {
+    fetchUserSkills();
   };
 
   const fetchUserSkills = async () => {
@@ -91,49 +95,42 @@ export default function Home() {
     }
   };
 
-  useEffect(() => {
-    fetchUserSkills();
-  }, []);
-
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("userId");
     navigate("/");
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const token = localStorage.getItem("token");
+  const fetchData = async () => {
+    try {
+      const token = localStorage.getItem("token");
 
-        if (!token) {
-          return <Navigate to="/" />;
-        } else {
-          setTokenExists(true);
+      if (!token) {
+        return <Navigate to="/" />;
+      } else {
+        setTokenExists(true);
 
-          const response = await axios.get(
-            `http://localhost:8080/usuario-skill`,
-            {
-              headers: {
-                Authorization: token,
-              },
-            }
-          );
+        const response = await axios.get(
+          `http://localhost:8080/usuario-skill`,
+          {
+            headers: {
+              Authorization: token,
+            },
+          }
+        );
 
-          const userID = Number(localStorage.getItem("userId"));
+        const userID = Number(localStorage.getItem("userId"));
 
-          const userSkillsFiltered = response.data.filter(
-            (skill: Skill) => skill.usuario.id === userID
-          );
+        const userSkillsFiltered = response.data.filter(
+          (skill: Skill) => skill.usuario.id === userID
+        );
 
-          setUserSkills(userSkillsFiltered);
-        }
-      } catch (error) {
-        console.error("Error fetching skills:", error);
+        setUserSkills(userSkillsFiltered);
       }
-    };
-    fetchData();
-  }, []);
+    } catch (error) {
+      console.error("Error fetching skills:", error);
+    }
+  };
 
   const handleEdit = (id: number) => {
     setNovoNivel(userSkills.find((skill) => skill.id === id)?.level || "0/10");

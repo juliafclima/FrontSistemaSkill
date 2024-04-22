@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ModalNovaSkill from "./novaSkill";
 interface ModalAddSkillProps {
   isOpen: boolean;
   onClose: () => void;
@@ -24,6 +25,7 @@ const ModalAddSkill: React.FC<ModalAddSkillProps> = ({
   const [userSkills, setUserSkills] = useState<Skill[]>([]);
   const [selectedSkillId, setSelectedSkillId] = useState<number | null>(null);
   const [selectedSkills, setSelectedSkills] = useState<number[]>([]);
+  const [isModalNovaOpen, setIsModalNovaOpen] = useState<boolean>(false);
 
   const fetchUserSkills = async () => {
     const response = await axios.get(`http://localhost:8080/skill`);
@@ -49,10 +51,9 @@ const ModalAddSkill: React.FC<ModalAddSkillProps> = ({
 
   const handleSubmit = async () => {
     if (selectedSkillId !== null) {
-      // Verifica se o ID da habilidade já está presente em selectedSkills
       if (selectedSkills.includes(selectedSkillId)) {
         toast.error("Você já adicionou esta skill.");
-        return; // Impede que a habilidade seja adicionada novamente
+        return;
       }
 
       const userID = Number(localStorage.getItem("userId"));
@@ -76,6 +77,15 @@ const ModalAddSkill: React.FC<ModalAddSkillProps> = ({
     onClose();
   };
 
+  const handleNovaClick = () => {
+    setIsModalNovaOpen(true);
+    onClose();
+  };
+
+  const handleNovaSkillSaved = () => {
+    setIsModalNovaOpen(false);
+  };
+
   return (
     <>
       {isOpen && (
@@ -92,10 +102,20 @@ const ModalAddSkill: React.FC<ModalAddSkillProps> = ({
 
             <div style={{ display: "flex", justifyContent: "space-between" }}>
               <Button onClick={onClose}>Cancelar</Button>
+              <Button onClick={handleNovaClick}>Nova</Button>
               <Button onClick={handleSubmit}>Salvar</Button>
             </div>
           </ModalContent>
         </ModalBackground>
+      )}
+
+      {isModalNovaOpen && (
+        <ModalNovaSkill
+          key={userSkills.length}
+          isOpen={isModalNovaOpen}
+          onClose={() => setIsModalNovaOpen(false)}
+          onSkillSaved={handleNovaSkillSaved}
+        />
       )}
     </>
   );

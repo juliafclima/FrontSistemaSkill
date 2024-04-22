@@ -29,28 +29,15 @@ export const getUsuarioSkill = () => {
 };
 
 export const putUsuarioSkill = (id: number, novoNivel: string) => {
-  return axiosInstance.put(`/usuario-skill/${id}/atualizar-nivel`, { novoNivel });
-};
-
-
-/* export const postCadastro = (name, price, description, quantity) => {
-  return api.post("/products", {
-    name: name,
-    price: price,
-    description: description,
-    quantity: quantity,
+  return axiosInstance.put(`/usuario-skill/${id}/atualizar-nivel`, {
+    novoNivel,
   });
 };
 
-export const getCadastro = () => {
-  return api.get("/products");
+export const postSkill = (nome: string, descricao: string, url: string) => {
+  return axiosInstance.post("/skill", {
+    nome: nome,
+    descricao: descricao,
+    url: url,
+  });
 };
-
-export const deleteCadastro = (id) => {
-  return api.delete(`/products/${id}`);
-};
-
-export const putCadastro = (id, usuarioAtualizado) => {
-  return api.put(`/products/${id}`, usuarioAtualizado);
-};
- */
