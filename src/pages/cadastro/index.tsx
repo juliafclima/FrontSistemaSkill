@@ -3,10 +3,11 @@ import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import { Container, FormContainer, StyledLink, Title } from "./style";
+import { FormContainer, StyledLink, Title } from "./style";
 import Button from "../../components/forms/button";
 import Input from "../../components/forms/input";
 import { postCadastro } from "../../server/LoginService";
+import { Container } from "./fundo";
 
 export default function Cadastro() {
   const [login, setLogin] = useState("");
@@ -51,7 +52,7 @@ export default function Cadastro() {
     <Container>
       <FormContainer>
         <ToastContainer />
-        <Title>Sistema Skill</Title>
+        <Title>CADASTRO</Title>
         <div
           style={{
             display: "flex",

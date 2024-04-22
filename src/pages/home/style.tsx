@@ -75,13 +75,13 @@ export const InputField = styled.input`
   font-size: 16px;
   border: 1px solid black;
   outline: none;
-  padding: 3px;
+  padding: 1px;
   border-radius: 19px;
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
-  width: 100px;
+  width: 50px;
 `;
 
 export const SaveButton = styled.button`

@@ -12,7 +12,7 @@ const Input: React.FC<InputProps> = ({
   placeholder,
   value,
   onChange,
-  type = "text",
+  type,
 }) => {
   return (
     <div className="form__group field">

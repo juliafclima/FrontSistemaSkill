@@ -6,7 +6,8 @@ import Input from "../../components/forms/input";
 import Button from "../../components/forms/button";
 import { postLogin } from "../../server/LoginService";
 import LembrarCheckbox from "../../components/lembreDeMim";
-import { Container, FormContainer, StyledLink, Title } from "./style";
+import { FormContainer, StyledLink, Title } from "./style";
+import { Container} from "./fundo";
 
 export default function Login() {
   const [username, setUsername] = useState("");

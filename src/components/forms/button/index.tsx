@@ -6,8 +6,8 @@ interface ButtonProps {
   onClick: () => void;
 }
 
-const Button: React.FC<ButtonProps> = ({ title, onClick }) => {
+const ButtonMy: React.FC<ButtonProps> = ({ title, onClick }) => {
   return <Botao onClick={onClick}>{title}</Botao>;
 };
 
-export default Button;
+export default ButtonMy;
