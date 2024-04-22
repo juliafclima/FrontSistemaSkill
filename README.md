@@ -42,6 +42,8 @@ npm run dev
 
 Acesse http://localhost:3000 no seu navegador para ver o projeto em execução.
 
+- [Back-End](https://github.com/juliafclima/BackSistemaSkilll)
+
 ## Bibliotecas e tecnologias utilizadas
 - React JS
 - TypeScript
