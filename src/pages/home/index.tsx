@@ -2,7 +2,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import { RiDeleteBin6Line } from "react-icons/ri";
-import { FaPencilAlt, FaSave } from "react-icons/fa";
+import { FaPencilAlt } from "react-icons/fa";
+import { FiSave } from "react-icons/fi";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Swal from "sweetalert2";
@@ -267,7 +268,7 @@ export default function Home() {
                     placeholder="Nº"
                   />
                   <SaveButton onClick={() => handleSave(skill.id)}>
-                    <FaSave color="black" size={18} />
+                    <FiSave color="black" size={18} />
                   </SaveButton>
                 </ContainerEdicao>
               ) : (
