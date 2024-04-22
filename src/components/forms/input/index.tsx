@@ -1,4 +1,5 @@
 import React from "react";
+import "./index.css";
 
 interface InputProps {
   placeholder: string;
@@ -14,25 +15,18 @@ const Input: React.FC<InputProps> = ({
   type = "text",
 }) => {
   return (
-    <input
-      type={type}
-      placeholder={placeholder}
-      value={value}
-      onChange={onChange}
-      style={inputStyle}
-    />
+    <div className="form__group field">
+      <input
+        className="form__field"
+        type={type}
+        value={value}
+        onChange={onChange}
+      />
+      <label htmlFor="name" className="form__label">
+        {placeholder}
+      </label>
+    </div>
   );
 };
 
 export default Input;
-
-const inputStyle = {
-  color: "#f1f1f1",
-  marginBottom: "20px",
-  padding: "8px",
-  borderRadius: "4px",
-  outline: "none",
-  fontSize: "16px",
-  width: "90%",
-  backgroundColor: "#5d5d65af",
-};

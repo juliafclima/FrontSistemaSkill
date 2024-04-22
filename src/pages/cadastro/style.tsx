@@ -10,15 +10,22 @@ export const Container = styled.div`
   justify-content: center;
   height: 100vh;
   font-family: Arial, Helvetica, sans-serif;
-  background-color: ${colors.dark};
   color: ${colors.light};
   margin: -8px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  background: linear-gradient(to bottom, #323232 0%, #3f3f3f 40%, #1c1c1c 150%),
+    linear-gradient(
+      to top,
+      rgba(255, 255, 255, 0.4) 0%,
+      rgba(0, 0, 0, 0.25) 200%
+    );
+  background-blend-mode: multiply;
 `;
 
 export const FormContainer = styled.div`
   width: 300px;
   padding: 20px;
-  border: 1px solid #ccc;
   border-radius: 8px;
   background-color: ${colors.white};
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);

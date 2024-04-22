@@ -1,28 +1,24 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
-import { IoIosLogOut } from "react-icons/io";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { FaPencilAlt, FaSave } from "react-icons/fa";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Swal from "sweetalert2";
 
 import {
-  CardContainer,
-  CardDescription,
   CardImage,
-  CardTitle,
   Container,
   MainContainer,
-  CardLevel,
   InputField,
   SaveButton,
   ContainerEdicao,
 } from "./style";
 import Button from "../../components/forms/button";
 import { putUsuarioSkill } from "../../server/LoginService";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import Swal from "sweetalert2";
 import ModalAddSkill from "./modal";
+import "./style.css";
 
 type Skill = {
   id: number;
@@ -44,7 +40,7 @@ type Skill = {
 export default function Home() {
   const [userSkills, setUserSkills] = useState<Skill[]>([]);
   const [tokenExists, setTokenExists] = useState(false);
-  const [novoNivel, setNovoNivel] = useState("0/10");
+  const [novoNivel, setNovoNivel] = useState("");
   const [editingCardId, setEditingCardId] = useState<number | null>(null);
   const [showAddSkillModal, setShowAddSkillModal] = useState(false);
 
@@ -227,7 +223,7 @@ export default function Home() {
 
       <MainContainer>
         {userSkills.map((skill) => (
-          <CardContainer key={skill.id}>
+          <div className="card" key={skill.id}>
             <div
               style={{
                 display: "flex",
@@ -237,13 +233,12 @@ export default function Home() {
               <RiDeleteBin6Line
                 size={18}
                 onClick={() => handleDelete(skill.id)}
-                style={{ cursor: "pointer" }}
+                style={{ cursor: "pointer", color: "black", marginBottom: 5 }}
               />
             </div>
-            <div style={{ display: "flex", justifyContent: "center" }}>
+            <div className="card-image">
               <CardImage src={skill.skill.url} alt="" />
             </div>
-            <CardTitle>{skill.skill.nome}</CardTitle>
 
             {editingCardId === skill.id ? (
               <ContainerEdicao>
@@ -258,14 +253,17 @@ export default function Home() {
                 </SaveButton>
               </ContainerEdicao>
             ) : (
-              <ContainerEdicao onClick={() => handleEdit(skill.id)}>
-                <CardLevel>Nível {skill.level}/10</CardLevel>
-                <FaPencilAlt size={16} />
-              </ContainerEdicao>
+              <div className="category">
+                <span className="name">{skill.level}</span>
+                /10 <FaPencilAlt size={16} />
+              </div>
             )}
 
-            <CardDescription>{skill.skill.descricao}</CardDescription>
-          </CardContainer>
+            <div className="heading">
+              {skill.skill.nome}
+              <div className="author">{skill.skill.descricao}</div>
+            </div>
+          </div>
         ))}
       </MainContainer>
     </Container>

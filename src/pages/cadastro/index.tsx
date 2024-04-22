@@ -52,7 +52,6 @@ export default function Cadastro() {
       <FormContainer>
         <ToastContainer />
         <Title>Sistema Skill</Title>
-        <Title>Cadastro</Title>
         <div
           style={{
             display: "flex",

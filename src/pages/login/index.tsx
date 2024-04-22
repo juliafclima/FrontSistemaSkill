@@ -12,6 +12,7 @@ export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [lembrarUsuario, setLembrarUsuario] = useState(false);
+  const [passwordVisible, setPasswordVisible] = useState(false);
 
   useEffect(() => {
     const storedUsername = localStorage.getItem("username");
