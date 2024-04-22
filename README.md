@@ -44,6 +44,23 @@ Acesse http://localhost:3000 no seu navegador para ver o projeto em execução.
 
 - [Back-End](https://github.com/juliafclima/BackSistemaSkilll)
 
+## Imagens
+
+<img width="938" alt="image" src="https://github.com/juliafclima/FrontSistemaSkill/assets/134448650/822255fb-c5c3-4a3c-a1f9-91ec1b3f5acf">
+
+<img width="938" alt="image" src="https://github.com/juliafclima/FrontSistemaSkill/assets/134448650/5c0f8428-9f3c-41ed-88af-e1fc56e88727">
+
+<img width="937" alt="image" src="https://github.com/juliafclima/FrontSistemaSkill/assets/134448650/75555c12-09b3-46c2-9171-649e9e975531">
+
+<img width="932" alt="image" src="https://github.com/juliafclima/FrontSistemaSkill/assets/134448650/6880988b-3033-4284-8cbe-eafc48343d9d">
+
+<img width="937" alt="image" src="https://github.com/juliafclima/FrontSistemaSkill/assets/134448650/6ee4d275-791f-4da8-9ee6-e7c4174b74b0">
+
+<img width="938" alt="image" src="https://github.com/juliafclima/FrontSistemaSkill/assets/134448650/6fe087ad-f36f-406e-850a-895b23759754">
+
+<img width="935" alt="image" src="https://github.com/juliafclima/FrontSistemaSkill/assets/134448650/57bb646e-624a-423f-92c1-b83002f38f2b">
+
+
 ## Bibliotecas e tecnologias utilizadas
 - React JS
 - TypeScript
