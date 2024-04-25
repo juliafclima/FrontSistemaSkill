@@ -286,6 +286,16 @@ export default function Home() {
           ))}
         </MainContainer>
       )}
+      <p
+        style={{
+          marginTop: "20px",
+          margin: "auto",
+          fontSize: "12px",
+          color: "#d9d9d9",
+        }}
+      >
+        © 2024 Júlia Lima
+      </p>
     </Container>
   );
 }
