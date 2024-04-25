@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
 import ModalNovaSkill from "./novaSkill";
 interface ModalAddSkillProps {
   isOpen: boolean;

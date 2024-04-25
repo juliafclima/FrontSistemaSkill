@@ -1,4 +1,5 @@
 import styled from "styled-components";
+
 import { colors } from "../../../global/styles/theme";
 
 export const Botao = styled.div`

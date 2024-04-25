@@ -1,4 +1,5 @@
 import React from "react";
+
 import "./index.css";
 
 interface InputProps {
@@ -26,9 +27,10 @@ const Input: React.FC<InputProps> = ({
         className="form__field"
         type={type}
         value={value}
-        onChange={onChange} style={labelStyle}
+        onChange={onChange}
+        style={labelStyle}
       />
-      <label htmlFor="name" className="form__label" >
+      <label htmlFor="name" className="form__label">
         {placeholder}
       </label>
     </div>
