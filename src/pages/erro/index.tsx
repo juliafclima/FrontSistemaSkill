@@ -1,20 +1,26 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import "./style.css";
 
 const ErroContainer = styled.div`
   text-align: center;
-  padding: 20px;
-  margin-top: 40px;
+  font-family: Arial, Helvetica, sans-serif;
   display: flex;
-  justify-content: center;
   flex-direction: column;
   align-items: center;
-  font-family: Arial, Helvetica, sans-serif;
+  justify-content: center;
+  height: 100vh;
 `;
 
 const ErroTitulo = styled.h1`
   font-size: 2rem;
   color: #e74c3c;
+`;
+
+const ErrorTitle = styled.h1`
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: white;
 `;
 
 const ErroMensagem = styled.p`
@@ -31,16 +37,36 @@ const ErroLinkHome = styled(Link)`
   color: #eba417;
   margin-top: 10px;
   margin-left: 5px;
+  transition: color 0.3s ease;
+
+  &:hover {
+    color: #ffc107;
+  }
 `;
 
 export default function Erro() {
   return (
-    <ErroContainer>
-      <ErroTitulo>404 - Página não encontrada</ErroTitulo>
+    <div className="containerErro">
+      <ErroContainer>
+        <ErrorTitle>Oops, algo deu errado!</ErrorTitle>
+        <ErroTitulo>404 - Página não encontrada</ErroTitulo>
 
-      <ErroAcoes>
-        <ErroLinkHome to="/">Voltar para a página inicial</ErroLinkHome>
-      </ErroAcoes>
-    </ErroContainer>
+        <div className="hourglassBackground">
+          <div className="hourglassContainer">
+            <div className="hourglassCurves"></div>
+            <div className="hourglassCapTop"></div>
+            <div className="hourglassGlassTop"></div>
+            <div className="hourglassSand"></div>
+            <div className="hourglassSandStream"></div>
+            <div className="hourglassCapBottom"></div>
+            <div className="hourglassGlass"></div>
+          </div>
+        </div>
+
+        <ErroAcoes>
+          <ErroLinkHome to="/">Voltar para a página inicial</ErroLinkHome>
+        </ErroAcoes>
+      </ErroContainer>
+    </div>
   );
 }

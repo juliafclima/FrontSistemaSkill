@@ -50,7 +50,7 @@ const ModalNovaSkill: React.FC<ModalAddSkillProps> = ({ isOpen, onClose }) => {
           setRedirect(true);
           return;
         } else {
-          const response = await postSkill(nome, descricao, url);
+          const response = await postSkill(nome, descricao, url, token);
 
           console.log("resposta ", response.data);
           toast.success("Cadastrado com sucesso");

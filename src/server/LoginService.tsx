@@ -34,7 +34,18 @@ export const putUsuarioSkill = (id: number, novoNivel: string) => {
   });
 };
 
-export const postSkill = (nome: string, descricao: string, url: string) => {
+export const setAuthToken = (token: string) => {
+  axiosInstance.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+};
+
+export const postSkill = (
+  nome: string,
+  descricao: string,
+  url: string,
+  token: string
+) => {
+  setAuthToken(token);
+
   return axiosInstance.post("/skill", {
     nome: nome,
     descricao: descricao,
