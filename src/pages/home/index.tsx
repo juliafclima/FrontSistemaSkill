@@ -1,24 +1,27 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
-import { RiDeleteBin6Line } from "react-icons/ri";
 import { FaPencilAlt } from "react-icons/fa";
 import { FiSave } from "react-icons/fi";
+import { RiDeleteBin6Line } from "react-icons/ri";
+import { Navigate, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Swal from "sweetalert2";
 
+import Button from "../../components/forms/button";
+import {
+  deleteUsuarioSkill,
+  getUsuarioSkill,
+  putUsuarioSkill,
+} from "../../server/UsuarioSkillService";
+import ModalAddSkill from "./modal";
 import {
   CardImage,
   Container,
-  MainContainer,
-  InputField,
-  SaveButton,
   ContainerEdicao,
+  InputField,
+  MainContainer,
+  SaveButton,
 } from "./style";
-import Button from "../../components/forms/button";
-import { putUsuarioSkill } from "../../server/LoginService";
-import ModalAddSkill from "./modal";
 import "./style.css";
 
 type Skill = {
@@ -64,22 +67,15 @@ export default function Home() {
     fetchUserSkills();
   };
 
+  const token = localStorage.getItem("token");
+
   const fetchUserSkills = async () => {
     setIsLoading(true);
     try {
-      const token = localStorage.getItem("token");
-
       if (!token) {
         return <Navigate to="/" />;
       } else {
-        const response = await axios.get(
-          `http://localhost:8080/usuario-skill`,
-          {
-            headers: {
-              Authorization: token,
-            },
-          }
-        );
+        const response = await getUsuarioSkill(token);
 
         const userID = Number(localStorage.getItem("userId"));
 
@@ -111,18 +107,11 @@ export default function Home() {
       } else {
         setTokenExists(true);
 
-        const response = await axios.get(
-          `http://localhost:8080/usuario-skill`,
-          {
-            headers: {
-              Authorization: token,
-            },
-          }
-        );
+        const response = await getUsuarioSkill(token);
 
         const userID = Number(localStorage.getItem("userId"));
 
-        const userSkillsFiltered = response.data.filter(
+        const userSkillsFiltered = response.filter(
           (skill: Skill) => skill.usuario.id === userID
         );
 
@@ -163,6 +152,7 @@ export default function Home() {
         }
         return skill;
       });
+
       setUserSkills(updatedSkills);
 
       setEditingCardId(null);
@@ -185,7 +175,7 @@ export default function Home() {
       });
 
       if (result.isConfirmed) {
-        await axios.delete(`http://localhost:8080/usuario-skill/${id}`);
+        await deleteUsuarioSkill(id);
 
         const updatedSkills = userSkills.filter((skill) => skill.id !== id);
         setUserSkills(updatedSkills);
@@ -288,7 +278,7 @@ export default function Home() {
       )}
       <p
         style={{
-          marginTop: "20px",
+          marginTop: "100px",
           margin: "auto",
           fontSize: "12px",
           color: "#d9d9d9",

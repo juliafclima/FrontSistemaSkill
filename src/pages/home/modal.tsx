@@ -1,8 +1,8 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import styled from "styled-components";
 
 import ModalNovaSkill from "./novaSkill";
 interface ModalAddSkillProps {
@@ -28,13 +28,27 @@ const ModalAddSkill: React.FC<ModalAddSkillProps> = ({
   const [selectedSkills, setSelectedSkills] = useState<number[]>([]);
   const [isModalNovaOpen, setIsModalNovaOpen] = useState<boolean>(false);
 
-  const fetchUserSkills = async () => {
-    const response = await axios.get(`http://localhost:8080/skill`);
-    setUserSkills(response.data);
+  const fetchUserSkills = async (token: string | null) => {
+    try {
+      const response = await axios.get(`http://localhost:8080/skill`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setUserSkills(response.data);
+    } catch (error) {
+      console.error("Error fetching user skills:", error);
+    }
   };
 
   useEffect(() => {
-    fetchUserSkills();
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      fetchUserSkills(token);
+    } else {
+      console.error("Token não encontrado no localStorage.");
+    }
   }, []);
 
   const opcoesSkills = () => {
@@ -58,19 +72,27 @@ const ModalAddSkill: React.FC<ModalAddSkillProps> = ({
       }
 
       const userID = Number(localStorage.getItem("userId"));
-
+      const token = localStorage.getItem("token");
       try {
-        await axios.post(`http://localhost:8080/usuario-skill`, {
-          level: "",
-          usuario: { id: userID },
-          skill: { id: selectedSkillId },
-        });
+        await axios.post(
+          `http://localhost:8080/usuario-skill`,
+          {
+            level: "",
+            usuario: { id: userID },
+            skill: { id: selectedSkillId },
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
 
         onSave();
 
         setSelectedSkills([...selectedSkills, selectedSkillId]);
 
-        fetchUserSkills();
+        fetchUserSkills(token); 
       } catch (error) {
         console.error("Error:", error);
       }

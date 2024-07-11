@@ -1,11 +1,11 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import styled from "styled-components";
 
 import Input from "../../components/forms/input";
-import { postSkill } from "../../server/LoginService";
+import { postSkill } from "../../server/SkillService";
 
 interface ModalAddSkillProps {
   isOpen: boolean;
@@ -28,13 +28,23 @@ const ModalNovaSkill: React.FC<ModalAddSkillProps> = ({ isOpen, onClose }) => {
   const [url, setUrl] = useState<string>("");
   const [redirect, setRedirect] = useState<boolean>(false);
 
-  const fetchUserSkills = async () => {
-    const response = await axios.get(`http://localhost:8080/skill`);
+  const fetchUserSkills = async (token: string) => {
+    const response = await axios.get(`http://localhost:8080/skill`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     setUserSkills(response.data);
   };
 
   useEffect(() => {
-    fetchUserSkills();
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      fetchUserSkills(token);
+    } else {
+      console.error("Token não encontrado no localStorage.");
+    }
   }, []);
 
   const cadastrar = async () => {
@@ -53,15 +63,14 @@ const ModalNovaSkill: React.FC<ModalAddSkillProps> = ({ isOpen, onClose }) => {
         } else {
           const response = await postSkill(nome, descricao, url, token);
 
-          console.log("resposta ", response.data);
           toast.success("Cadastrado com sucesso");
-          fetchUserSkills();
+          fetchUserSkills(token);
           setTimeout(() => {
             onClose();
           }, 1000);
         }
       } catch (error) {
-        console.log("deu errado", error);
+        console.error("deu errado", error);
       }
     } else {
       toast.info("Preencha todos os campos");
