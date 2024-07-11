@@ -191,6 +191,8 @@ export default function Home() {
     }
   };
 
+  const usuarioLogado = localStorage.getItem("username");
+
   return (
     <Container>
       <ToastContainer />
@@ -207,6 +209,7 @@ export default function Home() {
       >
         Gerenciamento de Skills
       </h1>
+      <p>Olá, {usuarioLogado}! :)</p>
       <div
         style={{
           display: "flex",
@@ -276,6 +279,11 @@ export default function Home() {
           ))}
         </MainContainer>
       )}
+      <div
+        style={{
+          height: "50px",
+        }}
+      />
       <p
         style={{
           marginTop: "100px",
@@ -284,7 +292,7 @@ export default function Home() {
           color: "#d9d9d9",
         }}
       >
-        © 2024 Júlia Lima
+        © {new Date().getFullYear()} | Desenvolvido por Júlia Lima
       </p>
     </Container>
   );
