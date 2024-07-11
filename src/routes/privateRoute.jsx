@@ -1,6 +1,6 @@
-import { Navigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 import { useEffect } from "react";
+import { Navigate } from "react-router-dom";
 
 // eslint-disable-next-line react/prop-types
 const PrivateRoute = ({ children }) => {
@@ -28,6 +28,8 @@ const PrivateRoute = ({ children }) => {
       return <Navigate to="/" />;
     }
   }
+  
   return children;
 };
+
 export { PrivateRoute };
