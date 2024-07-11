@@ -54,17 +54,19 @@ const ModalNovaSkill: React.FC<ModalAddSkillProps> = ({ isOpen, onClose }) => {
         return;
       }
 
-      try {
-        const token = localStorage.getItem("token");
+      const token = localStorage.getItem("token");
 
+      try {
         if (!token) {
           setRedirect(true);
           return;
         } else {
-          const response = await postSkill(nome, descricao, url, token);
+          await postSkill(nome, descricao, url, token);
 
           toast.success("Cadastrado com sucesso");
+
           fetchUserSkills(token);
+          
           setTimeout(() => {
             onClose();
           }, 1000);

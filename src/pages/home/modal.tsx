@@ -4,7 +4,10 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import styled from "styled-components";
 
+import { Navigate } from "react-router-dom";
+import { getSkill } from "../../server/SkillService";
 import ModalNovaSkill from "./novaSkill";
+
 interface ModalAddSkillProps {
   isOpen: boolean;
   onClose: () => void;
@@ -28,14 +31,24 @@ const ModalAddSkill: React.FC<ModalAddSkillProps> = ({
   const [selectedSkills, setSelectedSkills] = useState<number[]>([]);
   const [isModalNovaOpen, setIsModalNovaOpen] = useState<boolean>(false);
 
-  const fetchUserSkills = async (token: string | null) => {
+  const [page, setPage] = useState<number>(0);
+  const [size, setSize] = useState<number>(30);
+
+  const fetchUserSkills = async (
+    token: string | null,
+    page: number,
+    size: number
+  ) => {
     try {
-      const response = await axios.get(`http://localhost:8080/skill`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      setUserSkills(response.data);
+      if (!token) {
+        return <Navigate to="/" />;
+      } else {
+        const response = await getSkill(token, page, size);
+        const maxPageSize = response.data.totalElements; 
+        
+        setSize(maxPageSize); 
+        setUserSkills(response.data.content);
+      }
     } catch (error) {
       console.error("Error fetching user skills:", error);
     }
@@ -44,12 +57,8 @@ const ModalAddSkill: React.FC<ModalAddSkillProps> = ({
   useEffect(() => {
     const token = localStorage.getItem("token");
 
-    if (token) {
-      fetchUserSkills(token);
-    } else {
-      console.error("Token não encontrado no localStorage.");
-    }
-  }, []);
+    fetchUserSkills(token, page, size);
+  }, [page, size]);
 
   const opcoesSkills = () => {
     return userSkills.map((skill) => (
@@ -89,10 +98,9 @@ const ModalAddSkill: React.FC<ModalAddSkillProps> = ({
         );
 
         onSave();
+        fetchUserSkills(token, page, size);
 
         setSelectedSkills([...selectedSkills, selectedSkillId]);
-
-        fetchUserSkills(token); 
       } catch (error) {
         console.error("Error:", error);
       }

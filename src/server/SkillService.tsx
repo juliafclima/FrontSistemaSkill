@@ -1,4 +1,3 @@
-// SkillService.ts
 import { axiosInstance, setAuthToken } from "./api";
 
 export const postSkill = (
@@ -13,5 +12,16 @@ export const postSkill = (
     nome: nome,
     descricao: descricao,
     url: url,
+  });
+};
+
+export const getSkill = (token: string, page: number, size: number) => {
+  setAuthToken(token);
+
+  return axiosInstance.get("/skill", {
+    params: {
+      page: page,
+      size: size,
+    },
   });
 };
