@@ -10,6 +10,7 @@ import Swal from "sweetalert2";
 import FiltragemOpcoes from "../../components/filtros/filtroOpcoes";
 import Ordenacao from "../../components/filtros/ordenacao";
 import Button from "../../components/forms/button";
+import Header from "../../components/header";
 import {
   deleteUsuarioSkill,
   getUsuarioSkill,
@@ -17,6 +18,7 @@ import {
 } from "../../server/UsuarioSkillService";
 import ModalAddSkill from "./modal";
 import {
+  Botao,
   CardImage,
   Container,
   ContainerEdicao,
@@ -206,8 +208,6 @@ export default function Home() {
     }
   };
 
-  const usuarioLogado = localStorage.getItem("username");
-
   const [ascending, setAscending] = useState(true);
 
   const handleSortClick = () => {
@@ -215,109 +215,114 @@ export default function Home() {
   };
 
   return (
-    <Container>
-      <ToastContainer />
-      <h1
-        style={{
-          textAlign: "center",
-          color: "#d9d9d9",
-          textShadow:
-            "-1px -1px 1px rgba(255,255,255,.1), 1px 1px 1px rgba(0,0,0,.5)",
-          fontSize: "31px",
-          letterSpacing: "3px",
-          wordSpacing: "3.2px",
-        }}
-      >
-        Gerenciamento de Skills
-      </h1>
-      <div style={{ display: "flex", justifyContent: "flex-end" }}>
-        <p style={{ textAlign: "right" }}>Olá, {usuarioLogado}! :)</p>
-
-        <Button title="Sair" onClick={handleLogout} />
-      </div>
-
-      <ContainerFiltros>
-        <SearchInput onChange={() => {}} placeholder="Pesquisar..." />
+    <>
+      <Header handleLogout={handleLogout} />
+      <Container>
+        <ToastContainer />
+        <h1
+          style={{
+            textAlign: "center",
+            color: "#d9d9d9",
+            textShadow:
+              "-1px -1px 1px rgba(255,255,255,.1), 1px 1px 1px rgba(0,0,0,.5)",
+            fontSize: "31px",
+            letterSpacing: "3px",
+            wordSpacing: "3.2px",
+          }}
+        >
+          Gerenciamento de Skills
+        </h1>
 
         <ContainerFiltros>
-          <Ordenacao ascending={ascending} onClick={handleSortClick} />
-          <FiltragemOpcoes items={items} />
-          <Button title="Adicionar" onClick={openAddSkillModal} />
+          <SearchInput onChange={() => {}} placeholder="Pesquisar..." />
+
+          <ContainerFiltros>
+            <Ordenacao ascending={ascending} onClick={handleSortClick} />
+            <FiltragemOpcoes items={items} />
+            <Botao onClick={openAddSkillModal}>Adicionar</Botao>
+          </ContainerFiltros>
         </ContainerFiltros>
-      </ContainerFiltros>
 
-      <ModalAddSkill
-        isOpen={showAddSkillModal}
-        onClose={closeAddSkillModal}
-        onSave={handleSaveNewSkill}
-      />
+        <ModalAddSkill
+          isOpen={showAddSkillModal}
+          onClose={closeAddSkillModal}
+          onSave={handleSaveNewSkill}
+        />
 
-      {userSkills.length === 0 ? (
-        <p style={{ textAlign: "center", marginTop: "20px" }}>
-          Deseja cadastrar alguma skill?
-        </p>
-      ) : (
-        <MainContainer>
-          {userSkills.map((skill) => (
-            <div className="card" key={skill.id}>
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "flex-end",
-                }}
-              >
-                <RiDeleteBin6Line
-                  size={18}
-                  onClick={() => handleDelete(skill.id)}
-                  style={{ cursor: "pointer", color: "black", marginBottom: 5 }}
-                />
-              </div>
-              <div className="card-image">
-                <CardImage src={skill.skill.url} alt="" />
-              </div>
-
-              {editingCardId === skill.id ? (
-                <ContainerEdicao>
-                  <InputField
-                    type="number"
-                    value={novoNivel}
-                    onChange={(e) => setNovoNivel(e.target.value)}
-                    placeholder="Nº"
+        {userSkills.length === 0 ? (
+          <p style={{ textAlign: "center", marginTop: "20px" }}>
+            Deseja cadastrar alguma skill?
+          </p>
+        ) : (
+          <MainContainer>
+            {userSkills.map((skill) => (
+              <div className="card" key={skill.id}>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "flex-end",
+                  }}
+                >
+                  <RiDeleteBin6Line
+                    size={18}
+                    onClick={() => handleDelete(skill.id)}
+                    style={{
+                      cursor: "pointer",
+                      color: "black",
+                      marginBottom: 5,
+                    }}
                   />
-                  <SaveButton onClick={() => handleSave(skill.id)}>
-                    <FiSave color="black" size={18} />
-                  </SaveButton>
-                </ContainerEdicao>
-              ) : (
-                <div className="category" onClick={() => handleEdit(skill.id)}>
-                  <span className="name">{skill.level}</span>
-                  /10 <FaPencilAlt size={16} />
                 </div>
-              )}
+                <div className="card-image">
+                  <CardImage src={skill.skill.url} alt="" />
+                </div>
 
-              <div className="heading">
-                {skill.skill.nome}
-                <div className="author">{skill.skill.descricao}</div>
+                {editingCardId === skill.id ? (
+                  <ContainerEdicao>
+                    <InputField
+                      type="number"
+                      value={novoNivel}
+                      onChange={(e) => setNovoNivel(e.target.value)}
+                      placeholder="Nº"
+                    />
+                    <SaveButton onClick={() => handleSave(skill.id)}>
+                      <FiSave color="black" size={18} />
+                    </SaveButton>
+                  </ContainerEdicao>
+                ) : (
+                  <div
+                    className="category"
+                    onClick={() => handleEdit(skill.id)}
+                  >
+                    <span className="name">{skill.level}</span>
+                    /10 <FaPencilAlt size={16} />
+                  </div>
+                )}
+
+                <div className="heading">
+                  {skill.skill.nome}
+                  <div className="author">{skill.skill.descricao}</div>
+                </div>
               </div>
-            </div>
-          ))}
-        </MainContainer>
-      )}
-      <div
-        style={{
-          height: "50px",
-        }}
-      />
-      <p
-        style={{
-          marginTop: "100px",
-          margin: "auto",
-          fontSize: "12px",
-          color: "#d9d9d9",
-        }}
-      >
-        © {new Date().getFullYear()} | Desenvolvido por Júlia Lima
-      </p>
-    </Container>
+            ))}
+          </MainContainer>
+        )}
+        <div
+          style={{
+            height: "50px",
+          }}
+        />
+        <p
+          style={{
+            marginTop: "100px",
+            margin: "auto",
+            fontSize: "12px",
+            color: "#d9d9d9",
+          }}
+        >
+          © {new Date().getFullYear()} | Desenvolvido por Júlia Lima
+        </p>
+      </Container>
+    </>
   );
 }
