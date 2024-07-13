@@ -7,7 +7,10 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Swal from "sweetalert2";
 
+import FiltragemOpcoes from "../../components/filtros/filtroOpcoes";
+import Ordenacao from "../../components/filtros/ordenacao";
 import Button from "../../components/forms/button";
+import Input from "../../components/forms/input";
 import {
   deleteUsuarioSkill,
   getUsuarioSkill,
@@ -40,6 +43,17 @@ type Skill = {
     url: string;
   };
 };
+
+interface SortOption {
+  value: string;
+  label: string;
+}
+
+const items = [
+  { nome: "Item A", nivel: "Fácil" },
+  { nome: "Item B", nivel: "Médio" },
+  { nome: "Item C", nivel: "Difícil" },
+];
 
 export default function Home() {
   const [userSkills, setUserSkills] = useState<Skill[]>([]);
@@ -193,6 +207,18 @@ export default function Home() {
 
   const usuarioLogado = localStorage.getItem("username");
 
+  const [sortBy, setSortBy] = useState<string>();
+
+  const handleSortChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSortBy(event.target.value);
+  };
+
+  const sortOptions: SortOption[] = [
+    { value: "primeiro", label: "Ordenar por..." },
+    { value: "cres", label: "Crescente" },
+    { value: "desc", label: "Decrescente" },
+  ];
+
   return (
     <Container>
       <ToastContainer />
@@ -209,17 +235,35 @@ export default function Home() {
       >
         Gerenciamento de Skills
       </h1>
-      <p>Olá, {usuarioLogado}! :)</p>
+      <p style={{ textAlign: "right" }}>Olá, {usuarioLogado}! :)</p>
+
       <div
         style={{
           display: "flex",
-          alignItems: "flex-end",
-          justifyContent: "flex-end",
-          gap: 20,
+          justifyContent: "space-between",
+          alignItems: "center",
         }}
       >
-        <Button title="Adicionar" onClick={openAddSkillModal} />
-        <Button title="Sair" onClick={handleLogout} />
+        <Input onChange={() => {}} placeholder="Pesquisar..." />
+
+        <div
+          style={{
+            display: "flex",
+            alignItems: "flex-end",
+            justifyContent: "flex-end",
+            gap: 20,
+          }}
+        >
+          <Ordenacao
+            options={sortOptions}
+            sortBy={sortBy}
+            onSortChange={handleSortChange}
+          />
+          <FiltragemOpcoes items={items} />
+          <Button title="Filtrar" onClick={() => {}} />
+          <Button title="Adicionar" onClick={openAddSkillModal} />
+          <Button title="Sair" onClick={handleLogout} />
+        </div>
       </div>
 
       <ModalAddSkill

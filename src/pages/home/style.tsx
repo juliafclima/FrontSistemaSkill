@@ -9,7 +9,6 @@ export const Container = styled.div`
   display: flex;
   justify-content: center;
   flex-direction: column;
-  align-items: center;
   background-image: linear-gradient(
     180.2deg,
     rgba(30, 33, 48, 1) 6.8%,
@@ -23,8 +22,8 @@ export const MainContainer = styled.div`
   margin-top: 20px;
   display: flex;
   flex-wrap: wrap;
-  gap: 20px;
-  justify-content: center;
+  gap: 30px;
+  margin-left: 30px;
   align-items: center;
 
   @media screen and (max-width: 768px) {
