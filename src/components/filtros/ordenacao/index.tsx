@@ -1,31 +1,16 @@
-import React from "react";
+import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
+import { Button } from "./style";
 
-interface Option {
-  value: string;
-  label: string;
+interface SortButtonProps {
+  ascending: boolean;
+  onClick: () => void;
 }
 
-interface OrdenacaoProps {
-  options: Option[];
-  sortBy: string | undefined;
-  onSortChange: any;
-}
-
-const Ordenacao: React.FC<OrdenacaoProps> = ({
-  options,
-  sortBy,
-  onSortChange,
-}) => {
+const Ordenacao: React.FC<SortButtonProps> = ({ ascending, onClick }) => {
   return (
-    <div>
-      <select id="sort-select" value={sortBy} onChange={onSortChange}>
-        {options.map((option) => (
-          <option key={option.value} value={option.value}>
-            {option.label}
-          </option>
-        ))}
-      </select>
-    </div>
+    <Button onClick={onClick}>
+      Ordenar {ascending ? <IoIosArrowUp /> : <IoIosArrowDown />}
+    </Button>
   );
 };
 

@@ -10,7 +10,6 @@ import Swal from "sweetalert2";
 import FiltragemOpcoes from "../../components/filtros/filtroOpcoes";
 import Ordenacao from "../../components/filtros/ordenacao";
 import Button from "../../components/forms/button";
-import Input from "../../components/forms/input";
 import {
   deleteUsuarioSkill,
   getUsuarioSkill,
@@ -21,9 +20,11 @@ import {
   CardImage,
   Container,
   ContainerEdicao,
+  ContainerFiltros,
   InputField,
   MainContainer,
   SaveButton,
+  SearchInput,
 } from "./style";
 import "./style.css";
 
@@ -207,17 +208,11 @@ export default function Home() {
 
   const usuarioLogado = localStorage.getItem("username");
 
-  const [sortBy, setSortBy] = useState<string>();
+  const [ascending, setAscending] = useState(true);
 
-  const handleSortChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSortBy(event.target.value);
+  const handleSortClick = () => {
+    setAscending(!ascending);
   };
-
-  const sortOptions: SortOption[] = [
-    { value: "primeiro", label: "Ordenar por..." },
-    { value: "cres", label: "Crescente" },
-    { value: "desc", label: "Decrescente" },
-  ];
 
   return (
     <Container>
@@ -235,36 +230,21 @@ export default function Home() {
       >
         Gerenciamento de Skills
       </h1>
-      <p style={{ textAlign: "right" }}>Olá, {usuarioLogado}! :)</p>
+      <div style={{ display: "flex", justifyContent: "flex-end" }}>
+        <p style={{ textAlign: "right" }}>Olá, {usuarioLogado}! :)</p>
 
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-        }}
-      >
-        <Input onChange={() => {}} placeholder="Pesquisar..." />
-
-        <div
-          style={{
-            display: "flex",
-            alignItems: "flex-end",
-            justifyContent: "flex-end",
-            gap: 20,
-          }}
-        >
-          <Ordenacao
-            options={sortOptions}
-            sortBy={sortBy}
-            onSortChange={handleSortChange}
-          />
-          <FiltragemOpcoes items={items} />
-          <Button title="Filtrar" onClick={() => {}} />
-          <Button title="Adicionar" onClick={openAddSkillModal} />
-          <Button title="Sair" onClick={handleLogout} />
-        </div>
+        <Button title="Sair" onClick={handleLogout} />
       </div>
+
+      <ContainerFiltros>
+        <SearchInput onChange={() => {}} placeholder="Pesquisar..." />
+
+        <ContainerFiltros>
+          <Ordenacao ascending={ascending} onClick={handleSortClick} />
+          <FiltragemOpcoes items={items} />
+          <Button title="Adicionar" onClick={openAddSkillModal} />
+        </ContainerFiltros>
+      </ContainerFiltros>
 
       <ModalAddSkill
         isOpen={showAddSkillModal}

@@ -102,3 +102,22 @@ export const ContainerEdicao = styled.div`
   gap: 15px;
   cursor: pointer;
 `;
+
+interface ContainerProps {
+  justifyContent?: string;
+  alignItems?: string;
+}
+
+export const ContainerFiltros = styled.div<ContainerProps>`
+  display: flex;
+  justify-content: ${(props) => props.justifyContent || "space-between"};
+  align-items: center;
+  gap: 20px;
+`;
+
+export const SearchInput = styled.input`
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 200px;
+`;

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { DivContainer, Select } from "./style";
 
 interface Props {
   items: Item[];
@@ -30,13 +31,13 @@ const FiltragemOpcoes: React.FC<Props> = ({ items }) => {
   });
 
   return (
-    <div>
-      <select value={filtroNivel} onChange={handleNivelChange}>
-        <option value="">Filtrar por...</option>
+    <DivContainer>
+      <Select value={filtroNivel} onChange={handleNivelChange}>
+        <option value="">Filtrar</option>
         <option value="Nome">Nome</option>
         <option value="Nivel">Nível</option>
-      </select>
-    </div>
+      </Select>
+    </DivContainer>
   );
 };
 
