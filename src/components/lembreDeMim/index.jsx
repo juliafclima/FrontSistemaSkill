@@ -1,5 +1,7 @@
+import styled from "styled-components";
+
+import { colors } from "../../global/styles/theme";
 import "./checkbox.css";
-import { Container, Label } from "./style";
 
 function LembrarCheckbox({ lembrarUsuario, onChange }) {
   return (
@@ -23,5 +25,18 @@ function LembrarCheckbox({ lembrarUsuario, onChange }) {
     </Container>
   );
 }
+
+const Container = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  align-items: center;
+`;
+
+const Label = styled.span`
+  font-size: 16px;
+  color: ${colors.light};
+  margin-left: 10px;
+`;
 
 export default LembrarCheckbox;

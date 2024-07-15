@@ -4,8 +4,9 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import styled from "styled-components";
 
-import Input from "../../components/forms/input";
-import { postSkill } from "../../server/SkillService";
+import { postSkill } from "../../../server/SkillService";
+import Input from "../../forms/input";
+import { colors } from "../../../global/styles/theme";
 
 interface ModalAddSkillProps {
   isOpen: boolean;
@@ -85,9 +86,7 @@ const ModalNovaSkill: React.FC<ModalAddSkillProps> = ({ isOpen, onClose }) => {
         <ModalBackground onClick={onClose}>
           <ToastContainer />
           <ModalContent onClick={(e) => e.stopPropagation()}>
-            <h2 style={{ textAlign: "center", color: "#000" }}>
-              Adicionar nova Skill
-            </h2>
+            <Titulo>Adicionar nova Skill</Titulo>
 
             <Input
               placeholder="Nome"
@@ -108,11 +107,11 @@ const ModalNovaSkill: React.FC<ModalAddSkillProps> = ({ isOpen, onClose }) => {
               labelColor="#000"
             />
 
-            <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <ContainerButton>
               <Button onClick={onClose}>Cancelar</Button>
 
               <Button onClick={cadastrar}>Salvar</Button>
-            </div>
+            </ContainerButton>
           </ModalContent>
         </ModalBackground>
       )}
@@ -135,30 +134,33 @@ const ModalBackground = styled.div`
 `;
 
 const ModalContent = styled.div`
-  background-color: white;
+  background-color: ${colors.light};
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   width: 300px;
 `;
 
-const Select = styled.select`
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 20px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-`;
-
 const Button = styled.button`
-  background-color: #007bff;
-  color: white;
+  background-color: ${colors.secondaryDark};
+  color: ${colors.light};
   padding: 10px 20px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
   margin-right: 10px;
+
   &:hover {
-    background-color: #0056b3;
+    background-color: ${colors.secondary};
   }
+`;
+
+const Titulo = styled.h2`
+  text-align: center;
+  color: ${colors.dark};
+`;
+
+const ContainerButton = styled.div`
+  display: flex;
+  justify-content: space-between;
 `;

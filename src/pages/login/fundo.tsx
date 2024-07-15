@@ -1,4 +1,5 @@
 import styled from "styled-components";
+
 import { colors } from "../../global/styles/theme";
 
 export const Container = styled.div`
@@ -6,6 +7,7 @@ export const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  background-size: cover;
   height: 100vh;
   font-family: Arial, Helvetica, sans-serif;
   color: ${colors.light};

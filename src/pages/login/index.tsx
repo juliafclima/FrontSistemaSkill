@@ -7,7 +7,13 @@ import Input from "../../components/forms/input";
 import LembrarCheckbox from "../../components/lembreDeMim";
 import { postLogin } from "../../server/LoginService";
 import { Container } from "./fundo";
-import { FormContainer, StyledLink, Title } from "./style";
+import {
+  ContainerInputs,
+  ContainerNovaConta,
+  FormContainer,
+  StyledLink,
+  Title,
+} from "./style";
 
 export default function Login() {
   const [username, setUsername] = useState("");
@@ -65,13 +71,7 @@ export default function Login() {
       <FormContainer>
         <Title>Sistema Skill</Title>
         <Title>Login</Title>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
+        <ContainerInputs>
           <Input
             placeholder="Digite seu login"
             value={username}
@@ -84,23 +84,17 @@ export default function Login() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-        </div>
+        </ContainerInputs>
 
         <LembrarCheckbox
           lembrarUsuario={lembrarUsuario}
           onChange={() => setLembrarUsuario(!lembrarUsuario)}
         />
 
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            marginTop: "30px",
-          }}
-        >
+        <ContainerNovaConta>
           <Button title="Entrar" onClick={logar} />
           <StyledLink to="/cadastro">Não tem conta?</StyledLink>
-        </div>
+        </ContainerNovaConta>
       </FormContainer>
     </Container>
   );

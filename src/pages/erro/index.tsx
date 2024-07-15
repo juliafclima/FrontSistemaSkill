@@ -1,48 +1,8 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+
+import { colors } from "../../global/styles/theme";
 import "./style.css";
-
-const ErroContainer = styled.div`
-  text-align: center;
-  font-family: Arial, Helvetica, sans-serif;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-`;
-
-const ErroTitulo = styled.h1`
-  font-size: 2rem;
-  color: #e74c3c;
-`;
-
-const ErrorTitle = styled.h1`
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
-  color: white;
-`;
-
-const ErroMensagem = styled.p`
-  font-size: 1.2rem;
-  color: #333;
-`;
-
-const ErroAcoes = styled.div`
-  margin-top: 20px;
-`;
-
-const ErroLinkHome = styled(Link)`
-  text-decoration: none;
-  color: #eba417;
-  margin-top: 10px;
-  margin-left: 5px;
-  transition: color 0.3s ease;
-
-  &:hover {
-    color: #ffc107;
-  }
-`;
 
 export default function Erro() {
   return (
@@ -70,3 +30,40 @@ export default function Erro() {
     </div>
   );
 }
+
+const ErroContainer = styled.div`
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+`;
+
+const ErroTitulo = styled.h1`
+  font-size: 2rem;
+  color: ${colors.danger};
+`;
+
+const ErrorTitle = styled.h1`
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: ${colors.light};
+`;
+
+const ErroAcoes = styled.div`
+  margin-top: 20px;
+`;
+
+const ErroLinkHome = styled(Link)`
+  text-decoration: none;
+  color: ${colors.primary};
+  margin-top: 10px;
+  margin-left: 5px;
+  transition: color 0.3s ease;
+
+  &:hover {
+    color: ${colors.primaryLight};
+  }
+`;

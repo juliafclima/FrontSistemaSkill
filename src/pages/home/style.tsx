@@ -32,26 +32,6 @@ export const MainContainer = styled.div`
   }
 `;
 
-export const CardContainer = styled.div`
-  width: calc(50% - -200px);
-  max-width: 150px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  padding: 20px;
-  margin-bottom: 20px;
-  background-color: ${colors.black};
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-
-  @media screen and (max-width: 768px) {
-    width: calc(50% - 10px);
-  }
-
-  @media screen and (max-width: 480px) {
-    width: 100%;
-    margin-right: 0;
-  }
-`;
-
 export const CardImage = styled.img`
   width: 80%;
   height: 100px;
@@ -61,24 +41,9 @@ export const CardImage = styled.img`
   border-radius: 10px;
 `;
 
-export const CardTitle = styled.h1`
-  font-size: 20px;
-`;
-
-export const CardDescription = styled.p`
-  font-size: 14px;
-  color: #666;
-  text-align: justify;
-`;
-
-export const CardLevel = styled.p`
-  font-size: 16px;
-  color: #777;
-`;
-
 export const InputField = styled.input`
   font-size: 16px;
-  border: 1px solid black;
+  border: 1px solid ${colors.dark};
   outline: none;
   padding: 1px;
   border-radius: 19px;
@@ -119,8 +84,46 @@ export const ContainerFiltros = styled.div<ContainerProps>`
 export const Botao = styled.button`
   font-size: 1em;
   padding: 0.5em;
-  border: 1px solid #ccc;
+  border: 1px solid ${colors.gray[500]};
   border-radius: 5px;
   width: 80px;
   font-size: 14px;
+`;
+
+export const Titulo = styled.h1`
+  text-align: center;
+  color: ${colors.light};
+  text-shadow: -1px -1px 1px rgba(255, 255, 255, 0.1),
+    1px 1px 1px rgba(0, 0, 0, 0.5);
+  font-size: 31px;
+  letter-spacing: 3px;
+  word-spacing: 3.2px;
+`;
+
+export const Subtitulo = styled.p`
+  text-align: center;
+  margin-top: 20px;
+`;
+
+export const ContainerLixeira = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`;
+
+export const ContainerPaginacao = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+`;
+
+export const FooterEspaco = styled.div`
+  height: 50px;
+`;
+
+export const FooterParagrafo = styled.p`
+  margin-top: 100px;
+  margin: auto;
+  font-size: 12px;
+  color: ${colors.light};
 `;

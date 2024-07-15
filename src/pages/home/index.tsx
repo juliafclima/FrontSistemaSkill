@@ -10,6 +10,7 @@ import Swal from "sweetalert2";
 import Ordenacao from "../../components/filtros/ordenacao";
 import Header from "../../components/header";
 import SearchInput from "../../components/SearchInput";
+import ModalAddSkill from "../../components/Skills/Modal/modal";
 import {
   deleteUsuarioSkill,
   getUsuarioSkill,
@@ -17,16 +18,21 @@ import {
   getUsuarioSkillFiltro,
   putUsuarioSkill,
 } from "../../server/UsuarioSkillService";
-import ModalAddSkill from "./modal";
 import {
   Botao,
   CardImage,
   Container,
   ContainerEdicao,
   ContainerFiltros,
+  ContainerLixeira,
+  ContainerPaginacao,
+  FooterEspaco,
+  FooterParagrafo,
   InputField,
   MainContainer,
   SaveButton,
+  Subtitulo,
+  Titulo,
 } from "./style";
 import "./style.css";
 
@@ -203,8 +209,8 @@ export default function Home() {
         text: "Essa ação não pode ser revertida!",
         icon: "warning",
         showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
+        confirmButtonColor: "#0056b3",
+        cancelButtonColor: "#e83f5b",
         confirmButtonText: "Sim, apagar!",
         cancelButtonText: "Cancelar",
       });
@@ -281,19 +287,7 @@ export default function Home() {
       <Header handleLogout={handleLogout} />
       <Container>
         <ToastContainer />
-        <h1
-          style={{
-            textAlign: "center",
-            color: "#d9d9d9",
-            textShadow:
-              "-1px -1px 1px rgba(255,255,255,.1), 1px 1px 1px rgba(0,0,0,.5)",
-            fontSize: "31px",
-            letterSpacing: "3px",
-            wordSpacing: "3.2px",
-          }}
-        >
-          Gerenciamento de Skills
-        </h1>
+        <Titulo>Gerenciamento de Skills</Titulo>
 
         <ContainerFiltros>
           <SearchInput onSearch={fetchUserSkills} />
@@ -314,19 +308,12 @@ export default function Home() {
         />
 
         {userSkills.length === 0 ? (
-          <p style={{ textAlign: "center", marginTop: "20px" }}>
-            Deseja cadastrar alguma skill?
-          </p>
+          <Subtitulo>Deseja cadastrar alguma skill?</Subtitulo>
         ) : (
           <MainContainer>
             {userSkills.map((skill) => (
               <div className="card" key={skill.id}>
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "flex-end",
-                  }}
-                >
+                <ContainerLixeira>
                   <RiDeleteBin6Line
                     size={18}
                     onClick={() => handleDelete(skill.id)}
@@ -336,7 +323,7 @@ export default function Home() {
                       marginBottom: 5,
                     }}
                   />
-                </div>
+                </ContainerLixeira>
                 <div className="card-image">
                   <CardImage src={skill.skill.url} alt="" />
                 </div>
@@ -372,14 +359,7 @@ export default function Home() {
           </MainContainer>
         )}
 
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            gap: "20px",
-            marginTop: "20px",
-          }}
-        >
+        <ContainerPaginacao>
           {page > 0 && <Botao onClick={prevPage}>Página Anterior</Botao>}
 
           {userSkills.length > 0 ? (
@@ -391,23 +371,13 @@ export default function Home() {
               </p>
             </div>
           )}
-        </div>
+        </ContainerPaginacao>
 
-        <div
-          style={{
-            height: "50px",
-          }}
-        />
-        <p
-          style={{
-            marginTop: "100px",
-            margin: "auto",
-            fontSize: "12px",
-            color: "#d9d9d9",
-          }}
-        >
+        <FooterEspaco />
+
+        <FooterParagrafo>
           © {new Date().getFullYear()} | Desenvolvido por Júlia Lima
-        </p>
+        </FooterParagrafo>
       </Container>
     </>
   );

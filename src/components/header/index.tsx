@@ -1,6 +1,8 @@
 import { GoSignOut } from "react-icons/go";
 import styled from "styled-components";
-import { Botao } from "../forms/button/style";
+
+import logo from "../../assets/logo.png";
+import { colors } from "../../global/styles/theme";
 
 interface HeaderProps {
   handleLogout: () => void;
@@ -10,10 +12,9 @@ const Header: React.FC<HeaderProps> = ({ handleLogout }) => {
   const usuarioLogado = localStorage.getItem("username");
 
   return (
-    <HeaderContainer style={{ display: "flex", justifyContent: "flex-end" }}>
-      <WelcomeText style={{ textAlign: "right" }}>
-        Olá, {usuarioLogado}! :)
-      </WelcomeText>
+    <HeaderContainer>
+      <img width={50} src={logo} alt="Logo HTML" />
+      <WelcomeText>Olá, {usuarioLogado}! :)</WelcomeText>
 
       <Botao onClick={handleLogout}>
         <GoSignOut />
@@ -22,15 +23,13 @@ const Header: React.FC<HeaderProps> = ({ handleLogout }) => {
   );
 };
 
-export default Header;
-
 const HeaderContainer = styled.div`
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: center;
   gap: 20px;
   padding: 20px;
-  background-color: #f0f0f0;
+  background-color: ${colors.light};
 `;
 
 const WelcomeText = styled.p`
@@ -40,3 +39,35 @@ const WelcomeText = styled.p`
   color: #333;
   font-family: Arial, Helvetica, sans-serif;
 `;
+
+const Botao = styled.div`
+  width: fit-content;
+  min-width: 100px;
+  height: 25px;
+  padding: 8px;
+  border-radius: 5px;
+  border: 2.5px solid ${colors.light};
+  box-shadow: 0px 0px 20px -20px;
+  cursor: pointer;
+  background-color: ${colors.primary};
+  color: ${colors.dark};
+  font-style: bolder;
+  transition: all 0.2s ease-in-out 0ms;
+  user-select: none;
+  font-family: "Poppins", sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    background-color: ${colors.light};
+    box-shadow: 0px 0px 20px -18px;
+    border: 2.5px solid ${colors.primary};
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+`;
+
+export default Header;

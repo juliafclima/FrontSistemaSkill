@@ -7,7 +7,13 @@ import Button from "../../components/forms/button";
 import Input from "../../components/forms/input";
 import { postCadastro } from "../../server/LoginService";
 import { Container } from "./fundo";
-import { FormContainer, StyledLink, Title } from "./style";
+import {
+  ContainerInputs,
+  ContainerNovaConta,
+  FormContainer,
+  StyledLink,
+  Title,
+} from "./style";
 
 export default function Cadastro() {
   const [login, setLogin] = useState("");
@@ -53,13 +59,7 @@ export default function Cadastro() {
       <FormContainer>
         <ToastContainer />
         <Title>CADASTRO</Title>
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
+        <ContainerInputs>
           <Input
             placeholder="Digite seu login"
             value={login}
@@ -78,21 +78,15 @@ export default function Cadastro() {
             value={confirmSenha}
             onChange={(e) => setConfirmSenha(e.target.value)}
           />
-        </div>
+        </ContainerInputs>
 
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            marginTop: "30px",
-          }}
-        >
+        <ContainerNovaConta>
           <StyledLink to="/">Já tem conta?</StyledLink>
           <Button
             onClick={cadastrar}
             title={loading ? "Carregando..." : "Inscrever-se"}
           />
-        </div>
+        </ContainerNovaConta>
       </FormContainer>
     </Container>
   );
