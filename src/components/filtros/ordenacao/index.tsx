@@ -20,8 +20,11 @@ const Button = styled.button`
   padding: 0.5em;
   border: 1px solid ${colors.gray[500]};
   border-radius: 5px;
-  width: 80px;
+  width: 125px;
   font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 `;
 
 export default Ordenacao;

@@ -79,6 +79,10 @@ export const ContainerFiltros = styled.div<ContainerProps>`
   justify-content: ${(props) => props.justifyContent || "space-between"};
   align-items: center;
   gap: 20px;
+
+  @media screen and (max-width: 668px) {
+    flex-direction: column;
+  }
 `;
 
 export const Botao = styled.button`

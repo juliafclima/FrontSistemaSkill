@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Swal from "sweetalert2";
+import { MdLastPage, MdFirstPage } from "react-icons/md";
 
 import Ordenacao from "../../components/filtros/ordenacao";
 import Header from "../../components/header";
@@ -269,8 +270,9 @@ export default function Home() {
     }
   };
 
+  const hasNextPage = userSkills.length === pageSize;
+
   const nextPage = () => {
-    const hasNextPage = userSkills.length === pageSize;
     if (hasNextPage) {
       setPage(page + 1);
     }
@@ -335,6 +337,7 @@ export default function Home() {
                       value={novoNivel}
                       onChange={(e) => setNovoNivel(e.target.value)}
                       placeholder="Nº"
+                      required
                     />
                     <SaveButton onClick={() => handleSave(skill.id)}>
                       <FiSave color="black" size={18} />
@@ -360,16 +363,16 @@ export default function Home() {
         )}
 
         <ContainerPaginacao>
-          {page > 0 && <Botao onClick={prevPage}>Página Anterior</Botao>}
+          {page > 0 && (
+            <Botao onClick={prevPage}>
+              <MdFirstPage />
+            </Botao>
+          )}
 
-          {userSkills.length > 0 ? (
-            <Botao onClick={nextPage}>Próxima Página</Botao>
-          ) : (
-            <div>
-              <p>
-                Não há registros. Deseja adiconar mais uma skill ao seu perfil?
-              </p>
-            </div>
+          {hasNextPage && (
+            <Botao onClick={nextPage}>
+              <MdLastPage />
+            </Botao>
           )}
         </ContainerPaginacao>
 
