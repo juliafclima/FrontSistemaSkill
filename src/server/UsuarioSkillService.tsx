@@ -1,10 +1,32 @@
 import { axiosInstance, setAuthToken } from "./api";
 
-export const getUsuarioSkill = async (token: string) => {
+export const getUsuarioSkill = async (token: string, ordem = "asc") => {
   setAuthToken(token);
 
   try {
-    const response = await axiosInstance.get("/usuario-skill");
+    const response = await axiosInstance.get("/usuario-skill", {
+      params: {
+        ordem: ordem,
+      },
+    });
+    
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching user skills:", error);
+    throw error;
+  }
+};
+
+export const getUsuarioSkillDesc = async (token: string, ordem = "desc") => {
+  setAuthToken(token);
+
+  try {
+    const response = await axiosInstance.get("/usuario-skill", {
+      params: {
+        ordem: ordem,
+      },
+    });
+
     return response.data;
   } catch (error) {
     console.error("Error fetching user skills:", error);

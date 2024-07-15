@@ -9,11 +9,11 @@ import Swal from "sweetalert2";
 
 import FiltragemOpcoes from "../../components/filtros/filtroOpcoes";
 import Ordenacao from "../../components/filtros/ordenacao";
-import Button from "../../components/forms/button";
 import Header from "../../components/header";
 import {
   deleteUsuarioSkill,
   getUsuarioSkill,
+  getUsuarioSkillDesc,
   putUsuarioSkill,
 } from "../../server/UsuarioSkillService";
 import ModalAddSkill from "./modal";
@@ -65,6 +65,7 @@ export default function Home() {
   const [editingCardId, setEditingCardId] = useState<number | null>(null);
   const [showAddSkillModal, setShowAddSkillModal] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
 
   useEffect(() => {
     fetchData();
@@ -84,7 +85,7 @@ export default function Home() {
     fetchUserSkills();
   };
 
-  const token = localStorage.getItem("token");
+  const token = localStorage.getItem("token") ?? "";
 
   const fetchUserSkills = async () => {
     setIsLoading(true);
@@ -92,7 +93,9 @@ export default function Home() {
       if (!token) {
         return <Navigate to="/" />;
       } else {
-        const response = await getUsuarioSkill(token);
+        const response = await (sortOrder === "asc"
+          ? getUsuarioSkill(token)
+          : getUsuarioSkillDesc(token));
 
         const userID = Number(localStorage.getItem("userId"));
 
@@ -208,11 +211,40 @@ export default function Home() {
     }
   };
 
-  const [ascending, setAscending] = useState(true);
+  const handleChangeOrderClick = async () => {
+    try {
+      const newSortOrder = sortOrder === "asc" ? "desc" : "asc";
+      setSortOrder(newSortOrder);
 
-  const handleSortClick = () => {
-    setAscending(!ascending);
+      let response;
+      if (newSortOrder === "asc") {
+        response = await getUsuarioSkill(token);
+      } else {
+        response = await getUsuarioSkillDesc(token);
+      }
+
+      console.log(`Resposta da API (${newSortOrder}):`, response);
+
+      if (!response || !Array.isArray(response)) {
+        console.error(
+          `Resposta inválida ao alterar ordem para ${newSortOrder}:`,
+          response
+        );
+        return;
+      }
+
+      const userID = Number(localStorage.getItem("userId"));
+
+      const userSkillsFiltered = response.filter(
+        (skill: Skill) => skill.usuario.id === userID
+      );
+
+      setUserSkills(userSkillsFiltered);
+    } catch (error) {
+      console.error("Erro ao alterar ordem:", error);
+    }
   };
+
 
   return (
     <>
@@ -237,7 +269,10 @@ export default function Home() {
           <SearchInput onChange={() => {}} placeholder="Pesquisar..." />
 
           <ContainerFiltros>
-            <Ordenacao ascending={ascending} onClick={handleSortClick} />
+            <Ordenacao
+              ascending={sortOrder === "asc"}
+              onClick={handleChangeOrderClick}
+            />
             <FiltragemOpcoes items={items} />
             <Botao onClick={openAddSkillModal}>Adicionar</Botao>
           </ContainerFiltros>
