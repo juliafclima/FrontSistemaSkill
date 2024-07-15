@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { FaPencilAlt } from "react-icons/fa";
 import { FiSave } from "react-icons/fi";
 import { RiDeleteBin6Line } from "react-icons/ri";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Swal from "sweetalert2";
@@ -47,17 +47,6 @@ type Skill = {
   };
 };
 
-interface SortOption {
-  value: string;
-  label: string;
-}
-
-const items = [
-  { nome: "Item A", nivel: "Fácil" },
-  { nome: "Item B", nivel: "Médio" },
-  { nome: "Item C", nivel: "Difícil" },
-];
-
 export default function Home() {
   const [userSkills, setUserSkills] = useState<Skill[]>([]);
   const [tokenExists, setTokenExists] = useState(false);
@@ -66,10 +55,12 @@ export default function Home() {
   const [showAddSkillModal, setShowAddSkillModal] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
+  const [page, setPage] = useState(0);
+  const [pageSize, setPageSize] = useState(3);
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [page, pageSize, sortOrder]);
 
   const navigate = useNavigate();
 
@@ -91,32 +82,28 @@ export default function Home() {
     setIsLoading(true);
 
     try {
-      if (!token) {
-        return <Navigate to="/" />;
+      let response;
+
+      if (searchTerm) {
+        response = await getUsuarioSkillFiltro(token, searchTerm);
       } else {
-        let response;
-
-        if (searchTerm) {
-          response = await getUsuarioSkillFiltro(token, searchTerm);
-        } else {
-          response = await (sortOrder === "asc"
-            ? getUsuarioSkill(token)
-            : getUsuarioSkillDesc(token));
-        }
-
-        if (!response || !Array.isArray(response)) {
-          console.error("Resposta da API inválida:", response);
-          return;
-        }
-
-        const userID = Number(localStorage.getItem("userId"));
-
-        const userSkillsFiltered = response.filter(
-          (skill: Skill) => skill.usuario.id === userID
-        );
-
-        setUserSkills(userSkillsFiltered);
+        await (sortOrder === "asc"
+          ? getUsuarioSkill(token, page.toString(), pageSize.toString())
+          : getUsuarioSkillDesc(token, page.toString(), pageSize.toString()));
       }
+
+      if (!response || !Array.isArray(response.content)) {
+        console.error("Resposta da API inválida:", response);
+        return;
+      }
+
+      const userID = Number(localStorage.getItem("userId"));
+
+      const userSkillsFiltered = response.content.filter(
+        (skill: Skill) => skill.usuario.id === userID
+      );
+
+      setUserSkills(userSkillsFiltered);
     } catch (error) {
       console.error("Error fetching skills:", error);
     } finally {
@@ -132,23 +119,28 @@ export default function Home() {
 
   const fetchData = async () => {
     try {
-      const token = localStorage.getItem("token");
+      const token = localStorage.getItem("token") ?? "";
 
-      if (!token) {
-        return <Navigate to="/" />;
-      } else {
-        setTokenExists(true);
+      setTokenExists(true);
 
-        const response = await getUsuarioSkill(token);
+      const response = await getUsuarioSkill(
+        token,
+        page.toString(),
+        pageSize.toString()
+      );
 
-        const userID = Number(localStorage.getItem("userId"));
-
-        const userSkillsFiltered = response.filter(
-          (skill: Skill) => skill.usuario.id === userID
-        );
-
-        setUserSkills(userSkillsFiltered);
+      if (!response || !Array.isArray(response.content)) {
+        console.error("Resposta da API inválida:", response);
+        return;
       }
+
+      const userID = Number(localStorage.getItem("userId"));
+
+      const userSkillsFiltered = response.content.filter(
+        (skill: Skill) => skill.usuario.id === userID
+      );
+
+      setUserSkills(userSkillsFiltered);
     } catch (error) {
       console.error("Error fetching skills:", error);
     }
@@ -230,10 +222,20 @@ export default function Home() {
 
       let response;
       if (newSortOrder === "asc") {
-        response = await getUsuarioSkill(token);
+        response = await getUsuarioSkill(
+          token,
+          (page + 1).toString(),
+          pageSize.toString()
+        );
       } else {
-        response = await getUsuarioSkillDesc(token);
+        response = await getUsuarioSkillDesc(
+          token,
+          (page + 1).toString(),
+          pageSize.toString()
+        );
       }
+
+      console.log("API Response:", response);
 
       if (!response || !Array.isArray(response)) {
         console.error(
@@ -252,6 +254,16 @@ export default function Home() {
       setUserSkills(userSkillsFiltered);
     } catch (error) {
       console.error("Erro ao alterar ordem:", error);
+    }
+  };
+
+  const nextPage = () => {
+    setPage(page + 1);
+  };
+
+  const prevPage = () => {
+    if (page > 0) {
+      setPage(page - 1);
     }
   };
 
@@ -350,6 +362,21 @@ export default function Home() {
             ))}
           </MainContainer>
         )}
+
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            gap: "20px",
+            marginTop: "20px",
+          }}
+        >
+          <Botao onClick={prevPage} disabled={page === 0}>
+            Página Anterior
+          </Botao>
+          <Botao onClick={nextPage}>Próxima Página</Botao>
+        </div>
+
         <div
           style={{
             height: "50px",

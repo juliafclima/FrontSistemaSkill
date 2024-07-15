@@ -1,12 +1,19 @@
 import { axiosInstance, setAuthToken } from "./api";
 
-export const getUsuarioSkill = async (token: string, ordem = "asc") => {
+export const getUsuarioSkill = async (
+  token: string,
+  page: any,
+  size: any,
+  sort = "asc"
+) => {
   setAuthToken(token);
 
   try {
-    const response = await axiosInstance.get("/usuario-skill", {
+    const response = await axiosInstance.get("/usuario-skill/paginado-sorted", {
       params: {
-        ordem: ordem,
+        sort: sort,
+        page: page,
+        size: size,
       },
     });
 
@@ -17,13 +24,20 @@ export const getUsuarioSkill = async (token: string, ordem = "asc") => {
   }
 };
 
-export const getUsuarioSkillDesc = async (token: string, ordem = "desc") => {
+export const getUsuarioSkillDesc = async (
+  token: string,
+  page: any,
+  size: any,
+  sort = "desc"
+) => {
   setAuthToken(token);
 
   try {
-    const response = await axiosInstance.get("/usuario-skill", {
+    const response = await axiosInstance.get("/usuario-skill/paginado-sorted", {
       params: {
-        ordem: ordem,
+        sort: sort,
+        page: page,
+        size: size,
       },
     });
 

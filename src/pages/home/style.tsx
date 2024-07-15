@@ -25,6 +25,7 @@ export const MainContainer = styled.div`
   gap: 30px;
   margin-left: 30px;
   align-items: center;
+  justify-content: space-evenly;
 
   @media screen and (max-width: 768px) {
     justify-content: center;
