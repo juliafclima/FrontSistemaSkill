@@ -3,11 +3,11 @@ import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import { FormContainer, StyledLink, Title } from "./style";
 import Button from "../../components/forms/button";
 import Input from "../../components/forms/input";
 import { postCadastro } from "../../server/LoginService";
 import { Container } from "./fundo";
+import { FormContainer, StyledLink, Title } from "./style";
 
 export default function Cadastro() {
   const [login, setLogin] = useState("");

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { SearchInputContainer } from "./style";
+import { Botao, SearchInputContainer } from "./style";
 
 const SearchInput = ({
   onSearch,
@@ -11,6 +11,8 @@ const SearchInput = ({
   const handleSearch = async () => {
     try {
       onSearch(searchTerm);
+
+      setSearchTerm("");
     } catch (error) {
       console.error("Erro ao buscar habilidades do usuário:", error);
     }
@@ -20,11 +22,11 @@ const SearchInput = ({
     <div>
       <SearchInputContainer
         type="text"
-        placeholder="Pesquisar..."
+        placeholder="Pesquisar pelo nome da skill..."
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
       />
-      <button onClick={handleSearch}>Buscar</button>
+      <Botao onClick={handleSearch}>Buscar</Botao>
     </div>
   );
 };

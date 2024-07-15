@@ -1,10 +1,10 @@
 import { BrowserRouter } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 
-import AppRouter from "./routes";
 import { Provider } from "./context/context";
-import theme from "./global/styles/theme";
 import "./global/styles/global.css";
+import theme from "./global/styles/theme";
+import AppRouter from "./routes";
 
 function App() {
   return (

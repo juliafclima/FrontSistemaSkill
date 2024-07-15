@@ -66,7 +66,7 @@ const ModalNovaSkill: React.FC<ModalAddSkillProps> = ({ isOpen, onClose }) => {
           toast.success("Cadastrado com sucesso");
 
           fetchUserSkills(token);
-          
+
           setTimeout(() => {
             onClose();
           }, 1000);

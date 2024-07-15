@@ -104,8 +104,6 @@ export default function Home() {
             : getUsuarioSkillDesc(token));
         }
 
-        console.log("Resposta da API:", response);
-
         if (!response || !Array.isArray(response)) {
           console.error("Resposta da API inválida:", response);
           return;
@@ -236,8 +234,6 @@ export default function Home() {
       } else {
         response = await getUsuarioSkillDesc(token);
       }
-
-      console.log(`Resposta da API (${newSortOrder}):`, response);
 
       if (!response || !Array.isArray(response)) {
         console.error(

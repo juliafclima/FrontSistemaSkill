@@ -1,9 +1,9 @@
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 
-import Home from "../pages/home";
-import Login from "../pages/login";
 import Cadastro from "../pages/cadastro";
 import Erro from "../pages/erro";
+import Home from "../pages/home";
+import Login from "../pages/login";
 
 const isAuthenticated = () => {
   return localStorage.getItem("userId") !== null;

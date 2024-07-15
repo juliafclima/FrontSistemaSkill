@@ -15,4 +15,3 @@ export const postLogin = (username: string, password: string) => {
     password: password,
   });
 };
-

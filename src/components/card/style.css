@@ -62,6 +62,7 @@
       rgba(0, 0, 0, 0.7) 30%,
       transparent 30%
     ),
+
     linear-gradient(
       to top,
       transparent 17px,
@@ -69,6 +70,7 @@
       rgba(0, 0, 0, 0.3) 20px,
       transparent 20px
     ),
+
     linear-gradient(to right, black 2px, transparent 2px),
     linear-gradient(to left, black 2px, transparent 2px),
     linear-gradient(to top, black 2px, #228b22 2px);
@@ -100,6 +102,7 @@
       rgba(0, 0, 0, 0.2) 52%,
       rgba(0, 0, 0, 0) 52%
     ),
+
     linear-gradient(
       45deg,
       rgba(0, 0, 0, 0) 48%,
@@ -107,6 +110,7 @@
       rgba(0, 0, 0, 0.2) 52%,
       rgba(0, 0, 0, 0) 52%
     ),
+
     linear-gradient(
       65deg,
       rgba(0, 0, 0, 0) 48%,
@@ -114,6 +118,7 @@
       rgba(0, 0, 0, 0.2) 52%,
       rgba(0, 0, 0, 0) 52%
     ),
+    
     linear-gradient(
       22deg,
       rgba(0, 0, 0, 0) 48%,

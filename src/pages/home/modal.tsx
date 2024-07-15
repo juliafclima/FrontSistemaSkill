@@ -44,9 +44,9 @@ const ModalAddSkill: React.FC<ModalAddSkillProps> = ({
         return <Navigate to="/" />;
       } else {
         const response = await getSkill(token, page, size);
-        const maxPageSize = response.data.totalElements; 
-        
-        setSize(maxPageSize); 
+        const maxPageSize = response.data.totalElements;
+
+        setSize(maxPageSize);
         setUserSkills(response.data.content);
       }
     } catch (error) {

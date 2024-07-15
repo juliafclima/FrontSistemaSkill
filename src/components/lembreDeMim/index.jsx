@@ -1,5 +1,5 @@
-import { Container, Label } from "./style";
 import "./checkbox.css";
+import { Container, Label } from "./style";
 
 function LembrarCheckbox({ lembrarUsuario, onChange }) {
   return (
