@@ -264,7 +264,10 @@ export default function Home() {
   };
 
   const nextPage = () => {
-    setPage(page + 1);
+    const hasNextPage = userSkills.length === pageSize;
+    if (hasNextPage) {
+      setPage(page + 1);
+    }
   };
 
   const prevPage = () => {
@@ -377,10 +380,17 @@ export default function Home() {
             marginTop: "20px",
           }}
         >
-          <Botao onClick={prevPage} disabled={page === 0}>
-            Página Anterior
-          </Botao>
-          <Botao onClick={nextPage}>Próxima Página</Botao>
+          {page > 0 && <Botao onClick={prevPage}>Página Anterior</Botao>}
+
+          {userSkills.length > 0 ? (
+            <Botao onClick={nextPage}>Próxima Página</Botao>
+          ) : (
+            <div>
+              <p>
+                Não há registros. Deseja adiconar mais uma skill ao seu perfil?
+              </p>
+            </div>
+          )}
         </div>
 
         <div
