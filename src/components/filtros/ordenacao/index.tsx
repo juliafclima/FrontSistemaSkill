@@ -9,7 +9,7 @@ interface SortButtonProps {
 const Ordenacao: React.FC<SortButtonProps> = ({ ascending, onClick }) => {
   return (
     <Button onClick={onClick}>
-      Ordenar {ascending ? <IoIosArrowUp /> : <IoIosArrowDown />}
+      Ordenar nome {ascending ? <IoIosArrowUp /> : <IoIosArrowDown />}
     </Button>
   );
 };

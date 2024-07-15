@@ -7,7 +7,6 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Swal from "sweetalert2";
 
-import FiltragemOpcoes from "../../components/filtros/filtroOpcoes";
 import Ordenacao from "../../components/filtros/ordenacao";
 import Header from "../../components/header";
 import {
@@ -245,7 +244,6 @@ export default function Home() {
     }
   };
 
-
   return (
     <>
       <Header handleLogout={handleLogout} />
@@ -273,7 +271,6 @@ export default function Home() {
               ascending={sortOrder === "asc"}
               onClick={handleChangeOrderClick}
             />
-            <FiltragemOpcoes items={items} />
             <Botao onClick={openAddSkillModal}>Adicionar</Botao>
           </ContainerFiltros>
         </ContainerFiltros>
