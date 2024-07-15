@@ -136,7 +136,8 @@ export default function Home() {
       const response = await getUsuarioSkill(
         token,
         page.toString(),
-        pageSize.toString()
+        pageSize.toString(),
+        sort
       );
 
       if (!response || !Array.isArray(response.content)) {
@@ -238,8 +239,6 @@ export default function Home() {
         response = await getUsuarioSkillDesc(token, "0", pageSize.toString());
       }
 
-      console.log("API Response:", response);
-
       if (!response || !Array.isArray(response.content)) {
         console.error(
           `Resposta inválida ao alterar ordem para ${newSortOrder}:`,
@@ -254,7 +253,11 @@ export default function Home() {
         (skill: Skill) => skill.usuario.id === userID
       );
 
+      console.log("Usuarios filtrados:", userSkillsFiltered);
+
       setUserSkills(userSkillsFiltered);
+
+      console.log("UserSkills:", userSkills);
     } catch (error) {
       console.error("Erro ao alterar ordem:", error);
     }
