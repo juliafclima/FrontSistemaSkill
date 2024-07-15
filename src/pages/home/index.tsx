@@ -9,10 +9,12 @@ import Swal from "sweetalert2";
 
 import Ordenacao from "../../components/filtros/ordenacao";
 import Header from "../../components/header";
+import SearchInput from "../../components/SearchInput";
 import {
   deleteUsuarioSkill,
   getUsuarioSkill,
   getUsuarioSkillDesc,
+  getUsuarioSkillFiltro,
   putUsuarioSkill,
 } from "../../server/UsuarioSkillService";
 import ModalAddSkill from "./modal";
@@ -25,7 +27,6 @@ import {
   InputField,
   MainContainer,
   SaveButton,
-  SearchInput,
 } from "./style";
 import "./style.css";
 
@@ -86,19 +87,33 @@ export default function Home() {
 
   const token = localStorage.getItem("token") ?? "";
 
-  const fetchUserSkills = async () => {
+  const fetchUserSkills = async (searchTerm?: string) => {
     setIsLoading(true);
+
     try {
       if (!token) {
         return <Navigate to="/" />;
       } else {
-        const response = await (sortOrder === "asc"
-          ? getUsuarioSkill(token)
-          : getUsuarioSkillDesc(token));
+        let response;
+
+        if (searchTerm) {
+          response = await getUsuarioSkillFiltro(token, searchTerm);
+        } else {
+          response = await (sortOrder === "asc"
+            ? getUsuarioSkill(token)
+            : getUsuarioSkillDesc(token));
+        }
+
+        console.log("Resposta da API:", response);
+
+        if (!response || !Array.isArray(response)) {
+          console.error("Resposta da API inválida:", response);
+          return;
+        }
 
         const userID = Number(localStorage.getItem("userId"));
 
-        const userSkillsFiltered = response.data.filter(
+        const userSkillsFiltered = response.filter(
           (skill: Skill) => skill.usuario.id === userID
         );
 
@@ -264,7 +279,7 @@ export default function Home() {
         </h1>
 
         <ContainerFiltros>
-          <SearchInput onChange={() => {}} placeholder="Pesquisar..." />
+          <SearchInput onSearch={fetchUserSkills} />
 
           <ContainerFiltros>
             <Ordenacao

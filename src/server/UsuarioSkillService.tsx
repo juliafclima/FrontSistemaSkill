@@ -9,7 +9,7 @@ export const getUsuarioSkill = async (token: string, ordem = "asc") => {
         ordem: ordem,
       },
     });
-    
+
     return response.data;
   } catch (error) {
     console.error("Error fetching user skills:", error);
@@ -24,6 +24,26 @@ export const getUsuarioSkillDesc = async (token: string, ordem = "desc") => {
     const response = await axiosInstance.get("/usuario-skill", {
       params: {
         ordem: ordem,
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching user skills:", error);
+    throw error;
+  }
+};
+
+export const getUsuarioSkillFiltro = async (
+  token: string,
+  searchTerm: string
+) => {
+  setAuthToken(token);
+
+  try {
+    const response = await axiosInstance.get("/usuario-skill/filtrar", {
+      params: {
+        nomeSkill: searchTerm,
       },
     });
 

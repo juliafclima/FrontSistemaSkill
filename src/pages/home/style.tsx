@@ -115,13 +115,6 @@ export const ContainerFiltros = styled.div<ContainerProps>`
   gap: 20px;
 `;
 
-export const SearchInput = styled.input`
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  width: 200px;
-`;
-
 export const Botao = styled.button`
   font-size: 1em;
   padding: 0.5em;
