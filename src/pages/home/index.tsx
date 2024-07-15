@@ -54,13 +54,13 @@ export default function Home() {
   const [editingCardId, setEditingCardId] = useState<number | null>(null);
   const [showAddSkillModal, setShowAddSkillModal] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
+  const [sort, setSort] = useState<"asc" | "desc">("asc");
   const [page, setPage] = useState(0);
   const [pageSize, setPageSize] = useState(3);
 
   useEffect(() => {
     fetchData();
-  }, [page, pageSize, sortOrder]);
+  }, [page, pageSize, sort]);
 
   const navigate = useNavigate();
 
@@ -87,9 +87,19 @@ export default function Home() {
       if (searchTerm) {
         response = await getUsuarioSkillFiltro(token, searchTerm);
       } else {
-        await (sortOrder === "asc"
-          ? getUsuarioSkill(token, page.toString(), pageSize.toString())
-          : getUsuarioSkillDesc(token, page.toString(), pageSize.toString()));
+        if (sort === "asc") {
+          response = await getUsuarioSkill(
+            token,
+            page.toString(),
+            pageSize.toString()
+          );
+        } else {
+          response = await getUsuarioSkillDesc(
+            token,
+            page.toString(),
+            pageSize.toString()
+          );
+        }
       }
 
       if (!response || !Array.isArray(response.content)) {
@@ -217,27 +227,20 @@ export default function Home() {
 
   const handleChangeOrderClick = async () => {
     try {
-      const newSortOrder = sortOrder === "asc" ? "desc" : "asc";
-      setSortOrder(newSortOrder);
+      const newSortOrder = sort === "asc" ? "desc" : "asc";
+      setSort(newSortOrder);
+      setPage(0);
 
       let response;
       if (newSortOrder === "asc") {
-        response = await getUsuarioSkill(
-          token,
-          (page + 1).toString(),
-          pageSize.toString()
-        );
+        response = await getUsuarioSkill(token, "0", pageSize.toString());
       } else {
-        response = await getUsuarioSkillDesc(
-          token,
-          (page + 1).toString(),
-          pageSize.toString()
-        );
+        response = await getUsuarioSkillDesc(token, "0", pageSize.toString());
       }
 
       console.log("API Response:", response);
 
-      if (!response || !Array.isArray(response)) {
+      if (!response || !Array.isArray(response.content)) {
         console.error(
           `Resposta inválida ao alterar ordem para ${newSortOrder}:`,
           response
@@ -247,7 +250,7 @@ export default function Home() {
 
       const userID = Number(localStorage.getItem("userId"));
 
-      const userSkillsFiltered = response.filter(
+      const userSkillsFiltered = response.content.filter(
         (skill: Skill) => skill.usuario.id === userID
       );
 
@@ -291,7 +294,7 @@ export default function Home() {
 
           <ContainerFiltros>
             <Ordenacao
-              ascending={sortOrder === "asc"}
+              ascending={sort === "asc"}
               onClick={handleChangeOrderClick}
             />
             <Botao onClick={openAddSkillModal}>Adicionar</Botao>
