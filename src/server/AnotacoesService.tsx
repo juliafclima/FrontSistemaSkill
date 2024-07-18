@@ -1,8 +1,8 @@
 import axiosInstance, { setAuthToken } from "./api";
 
 export const getAnotacao = (
-  idUsuario: string,
-  idUsuarioConsulta: string,
+  idUsuario: any,
+  idUsuarioConsulta: any,
   token: string
 ) => {
   setAuthToken(token);
@@ -13,7 +13,7 @@ export const getAnotacao = (
 };
 
 export const postAnotacao = (
-  idUsuario: number,
+  idUsuario: any,
   descricao: string,
   dataCriacao: Date,
   token: string
@@ -27,6 +27,6 @@ export const postAnotacao = (
   });
 };
 
-export const deleteUsuarioSkill = (idUsuario: number, idAnotacao: number) => {
+export const deleteUsuarioSkill = (idUsuario: any, idAnotacao: any) => {
   return axiosInstance.delete(`/anotacao/${idUsuario}/apagar/${idAnotacao}`);
 };
