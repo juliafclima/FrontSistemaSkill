@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { FaPencilAlt } from "react-icons/fa";
 import { FiSave } from "react-icons/fi";
+import { MdFirstPage, MdLastPage } from "react-icons/md";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Swal from "sweetalert2";
-import { MdLastPage, MdFirstPage } from "react-icons/md";
 
 import Ordenacao from "../../components/filtros/ordenacao";
 import Header from "../../components/header";
@@ -110,7 +110,7 @@ export default function Home() {
       }
 
       if (!response || !Array.isArray(response.content)) {
-        console.error("Resposta da API inválida:", response);
+        console.error("Resposta da API inválida: ", response);
         return;
       }
 
@@ -122,7 +122,7 @@ export default function Home() {
 
       setUserSkills(userSkillsFiltered);
     } catch (error) {
-      console.error("Error fetching skills:", error);
+      console.error("Erro ao buscar habilidades: ", error);
     } finally {
       setIsLoading(false);
     }
@@ -148,7 +148,7 @@ export default function Home() {
       );
 
       if (!response || !Array.isArray(response.content)) {
-        console.error("Resposta da API inválida:", response);
+        console.error("Resposta da API inválida: ", response);
         return;
       }
 
@@ -160,7 +160,7 @@ export default function Home() {
 
       setUserSkills(userSkillsFiltered);
     } catch (error) {
-      console.error("Error fetching skills:", error);
+      console.error("Erro ao buscar habilidades: ", error);
     }
   };
 
@@ -199,7 +199,7 @@ export default function Home() {
 
       setEditingCardId(null);
     } catch (error) {
-      console.error("Erro ao salvar edição:", error);
+      console.error("Erro ao salvar edição: ", error);
     }
   };
 
@@ -227,6 +227,7 @@ export default function Home() {
         }
 
         toast.success("Card removido com sucesso!");
+        fetchData();
       }
     } catch (error) {
       toast.error("Algo aconteceu! Não foi possível apagar.");
@@ -248,7 +249,7 @@ export default function Home() {
 
       if (!response || !Array.isArray(response.content)) {
         console.error(
-          `Resposta inválida ao alterar ordem para ${newSortOrder}:`,
+          `Resposta inválida ao alterar ordem para ${newSortOrder}: `,
           response
         );
         return;
@@ -266,7 +267,7 @@ export default function Home() {
 
       console.log("UserSkills:", userSkills);
     } catch (error) {
-      console.error("Erro ao alterar ordem:", error);
+      console.error("Erro ao alterar ordem: ", error);
     }
   };
 

@@ -5,6 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 import Button from "../../components/forms/button";
 import Input from "../../components/forms/input";
+import PasswordInput from "../../components/forms/PasswordInput";
 import { postCadastro } from "../../server/LoginService";
 import { Container } from "./fundo";
 import {
@@ -45,7 +46,7 @@ export default function Cadastro() {
           setLoading(false);
         }, 1500);
       } catch (error) {
-        console.error("Erro ao cadastrar:", error);
+        console.error("Erro ao cadastrar: ", error);
         toast.error("Usuario já cadastrado!");
         setLoading(false);
       }
@@ -65,16 +66,15 @@ export default function Cadastro() {
             value={login}
             onChange={(e) => setLogin(e.target.value)}
           />
-          <Input
+
+          <PasswordInput
             placeholder="Digite sua senha"
-            type="password"
             value={senha}
             onChange={(e) => setSenha(e.target.value)}
           />
 
-          <Input
+          <PasswordInput
             placeholder="Confirme sua senha"
-            type="password"
             value={confirmSenha}
             onChange={(e) => setConfirmSenha(e.target.value)}
           />

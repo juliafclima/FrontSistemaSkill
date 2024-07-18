@@ -4,9 +4,9 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import styled from "styled-components";
 
+import { colors } from "../../../global/styles/theme";
 import { postSkill } from "../../../server/SkillService";
 import Input from "../../forms/input";
-import { colors } from "../../../global/styles/theme";
 
 interface ModalAddSkillProps {
   isOpen: boolean;
@@ -44,7 +44,7 @@ const ModalNovaSkill: React.FC<ModalAddSkillProps> = ({ isOpen, onClose }) => {
     if (token) {
       fetchUserSkills(token);
     } else {
-      console.error("Token não encontrado no localStorage.");
+      console.error("Token não encontrado no localStorage");
     }
   }, []);
 
@@ -73,7 +73,10 @@ const ModalNovaSkill: React.FC<ModalAddSkillProps> = ({ isOpen, onClose }) => {
           }, 1000);
         }
       } catch (error) {
-        console.error("deu errado", error);
+        console.error(
+          "Algo deu errado, não foi possível cadastrar o usuário",
+          error
+        );
       }
     } else {
       toast.info("Preencha todos os campos");

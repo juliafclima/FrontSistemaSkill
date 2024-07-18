@@ -14,7 +14,12 @@ const Header: React.FC<HeaderProps> = ({ handleLogout }) => {
   return (
     <HeaderContainer>
       <img width={50} src={logo} alt="Logo HTML" />
-      <WelcomeText>Olá, {usuarioLogado}! :)</WelcomeText>
+
+      {usuarioLogado ? (
+        <WelcomeText>Olá, {usuarioLogado}! :)</WelcomeText>
+      ) : (
+        <WelcomeText>Olá, usuário! :)</WelcomeText>
+      )}
 
       <Botao onClick={handleLogout}>
         <GoSignOut />

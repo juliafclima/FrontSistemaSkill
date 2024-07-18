@@ -51,7 +51,7 @@ const ModalAddSkill: React.FC<ModalAddSkillProps> = ({
         setUserSkills(response.data.content);
       }
     } catch (error) {
-      console.error("Error fetching user skills:", error);
+      console.error("Erro ao buscar habilidades do usuário: ", error);
     }
   };
 
@@ -103,7 +103,7 @@ const ModalAddSkill: React.FC<ModalAddSkillProps> = ({
 
         setSelectedSkills([...selectedSkills, selectedSkillId]);
       } catch (error) {
-        console.error("Error:", error);
+        console.error("Erro: ", error);
       }
     }
     onClose();

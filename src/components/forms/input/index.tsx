@@ -14,7 +14,7 @@ const Input: React.FC<InputProps> = ({
   placeholder,
   value,
   onChange,
-  type,
+  type = "text",
   labelColor,
 }) => {
   const labelStyle = {

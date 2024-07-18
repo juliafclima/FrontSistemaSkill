@@ -15,7 +15,7 @@ const SearchInput = ({
 
       setSearchTerm("");
     } catch (error) {
-      console.error("Erro ao buscar habilidades do usuário:", error);
+      console.error("Erro ao buscar habilidades do usuário: ", error);
     }
   };
 

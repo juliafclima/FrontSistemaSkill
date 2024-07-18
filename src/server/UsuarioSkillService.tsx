@@ -19,7 +19,7 @@ export const getUsuarioSkill = async (
 
     return response.data;
   } catch (error) {
-    console.error("Error fetching user skills:", error);
+    console.error("Erro ao buscar habilidades do usuário: ", error);
     throw error;
   }
 };
@@ -43,7 +43,7 @@ export const getUsuarioSkillDesc = async (
 
     return response.data;
   } catch (error) {
-    console.error("Error fetching user skills:", error);
+    console.error("Erro ao buscar habilidades do usuário: ", error);
     throw error;
   }
 };
@@ -63,7 +63,7 @@ export const getUsuarioSkillFiltro = async (
 
     return response.data;
   } catch (error) {
-    console.error("Error fetching user skills:", error);
+    console.error("Erro ao buscar habilidades do usuário: ", error);
     throw error;
   }
 };

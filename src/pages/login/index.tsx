@@ -4,6 +4,7 @@ import { ToastContainer, toast } from "react-toastify";
 
 import Button from "../../components/forms/button";
 import Input from "../../components/forms/input";
+import PasswordInput from "../../components/forms/PasswordInput";
 import LembrarCheckbox from "../../components/lembreDeMim";
 import { postLogin } from "../../server/LoginService";
 import { Container } from "./fundo";
@@ -37,6 +38,7 @@ export default function Login() {
     if (password && username) {
       try {
         const response = await postLogin(username, password);
+        localStorage.setItem("username", username);
 
         const token = response.data.token;
         localStorage.setItem("token", token);
@@ -57,7 +59,7 @@ export default function Login() {
 
         navigate("/home");
       } catch (error) {
-        console.error("Erro ao realizar login:", error);
+        console.error("Erro ao realizar login: ", error);
         toast.error("Senha e/ou login errados!");
       }
     } else {
@@ -78,9 +80,8 @@ export default function Login() {
             onChange={(e) => setUsername(e.target.value)}
           />
 
-          <Input
+          <PasswordInput
             placeholder="Digite sua senha"
-            type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
