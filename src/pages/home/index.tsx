@@ -8,6 +8,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Swal from "sweetalert2";
 
+import Anotacoes from "../../components/anotacoes";
 import Ordenacao from "../../components/filtros/ordenacao";
 import Header from "../../components/header";
 import SearchInput from "../../components/SearchInput";
@@ -378,6 +379,8 @@ export default function Home() {
         </ContainerPaginacao>
 
         <FooterEspaco />
+
+        <Anotacoes />
 
         <FooterParagrafo>
           © {new Date().getFullYear()} | Desenvolvido por Júlia Lima
