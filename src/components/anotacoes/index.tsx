@@ -1,7 +1,7 @@
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
-import { useState } from "react";
-import { postAnotacao } from "../../server/AnotacoesService";
+import { useEffect, useState } from "react";
+import { getAnotacao, postAnotacao } from "../../server/AnotacoesService";
 
 interface Annotation {
   id: number;
@@ -13,6 +13,22 @@ export default function Anotacoes() {
   const [anotacoes, setAnotacoes] = useState<Annotation[]>([]);
   const [descricao, setDescricao] = useState("");
   const [dataCriacao, setDataCriacao] = useState(new Date());
+
+  useEffect(() => {
+    const fetchAnotacoes = async () => {
+      try {
+        const token = localStorage.getItem("token") ?? "";
+        const user = localStorage.getItem("userId");
+
+        const response = await getAnotacao(user, user, token);
+        setAnotacoes(response.data);
+      } catch (error) {
+        console.error("Erro ao carregar anotações", error);
+      }
+    };
+
+    fetchAnotacoes();
+  }, []);
 
   const formatarData = (data: Date): string => {
     return format(data, "'criada em' dd 'de' MMM 'às' HH'h'mm", {
