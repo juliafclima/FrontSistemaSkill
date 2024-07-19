@@ -43,7 +43,7 @@ npm run dev
 Acesse http://localhost:3000 no seu navegador para ver o projeto em execução.
 
 - [Back-End](https://github.com/juliafclima/BackSistemaSkill)
-- [Mobile](https://github.com/juliafclima/MobileSistemaSkill)
+- [Front-End Mobile](https://github.com/juliafclima/MobileSistemaSkill)
 
 ## Imagens
 
