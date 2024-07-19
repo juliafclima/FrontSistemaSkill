@@ -69,12 +69,15 @@ Novas Features:
 - Paginação
 - Ordenação
 - Tratamento de exceção
+- Criação de anotações
 
 <img width="935" alt="image" src="https://github.com/user-attachments/assets/e2cf99df-305e-4464-872f-78210bb2a25a">
 
 <img width="935" alt="image" src="https://github.com/user-attachments/assets/23c4af60-bba3-44f1-a778-c97113cc788b">
 
 <img width="935" alt="image" src="https://github.com/user-attachments/assets/13ea3e3a-ee43-4c99-86cc-3a5f67120bcf">
+
+<img width="935" alt="image" src="https://github.com/user-attachments/assets/9f0bb30f-fcb0-4da0-870f-ef907854882e">
 
 ## Bibliotecas e tecnologias utilizadas
 - React JS
