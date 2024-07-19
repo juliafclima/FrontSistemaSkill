@@ -27,6 +27,6 @@ export const postAnotacao = (
   });
 };
 
-export const deleteUsuarioSkill = (idUsuario: any, idAnotacao: any) => {
+export const deleteAnotacao = (idUsuario: any, idAnotacao: any) => {
   return axiosInstance.delete(`/anotacao/${idUsuario}/apagar/${idAnotacao}`);
 };
