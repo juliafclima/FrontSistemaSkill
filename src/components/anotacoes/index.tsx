@@ -110,9 +110,7 @@ export default function Anotacoes() {
             <RiDeleteBin6Line
               style={{ cursor: "pointer" }}
               size={18}
-              onClick={() => {
-                console.log("ID da anotação:", anotacao.id);
-              }}
+              onClick={() => apagarAnotacoes(userId, anotacao.id)}
             />
           </div>
         </Container>
