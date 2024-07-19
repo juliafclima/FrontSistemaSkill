@@ -53,7 +53,7 @@ export default function Anotacoes() {
 
       const response = await postAnotacao(user, descricao, dataCriacao, token);
 
-      setAnotacoes([...anotacoes, response.data]);
+      setAnotacoes([response.data, ...anotacoes]);
       setDescricao("");
     } catch (error) {
       console.error("Erro ao gerar anotações", error);
@@ -61,8 +61,6 @@ export default function Anotacoes() {
   };
 
   const apagarAnotacoes = async (idUsuario: any, idAnotacao: any) => {
-    console.log("Tentando apagar anotação:", idAnotacao);
-
     try {
       await deleteAnotacao(idUsuario, idAnotacao);
 
@@ -86,36 +84,48 @@ export default function Anotacoes() {
   const userId = localStorage.getItem("userId");
 
   return (
-    <PageContainer>
-      <Titulo>anotacões</Titulo>
+    <AnotacaoContainer>
+      <Titulo></Titulo>
       <Formulario onSubmit={handleSubmit}>
-        <input
-          type="text"
-          className="input"
-          value={descricao}
-          onChange={(e) => setDescricao(e.target.value)}
-          placeholder="Criar uma nota..."
-        />
+        <div className="wave-group">
+          <input
+            type="text"
+            className="input"
+            value={descricao}
+            onChange={(e) => setDescricao(e.target.value)}
+            required
+          />
+          <span className="bar"></span>
+          <label className="label">
+            <span className="label-char">N</span>
+            <span className="label-char">o</span>
+            <span className="label-char">t</span>
+            <span className="label-char">a</span>
+          </label>
+        </div>
+
         <button type="submit">Enviar</button>
       </Formulario>
 
-      {anotacoes.map((anotacao, index) => (
-        <Container key={index}>
-          <div>
-            <p>{anotacao.descricao}</p>
-            <span>{formatarData(anotacao.dataCriacao)}</span>
-          </div>
+      <PageContainer>
+        {anotacoes.map((anotacao, index) => (
+          <Container key={index}>
+            <div>
+              <p>{anotacao.descricao}</p>
+              <span>{formatarData(anotacao.dataCriacao)}</span>
+            </div>
 
-          <div>
-            <RiDeleteBin6Line
-              style={{ cursor: "pointer" }}
-              size={18}
-              onClick={() => apagarAnotacoes(userId, anotacao.id)}
-            />
-          </div>
-        </Container>
-      ))}
-    </PageContainer>
+            <div>
+              <RiDeleteBin6Line
+                style={{ cursor: "pointer" }}
+                size={18}
+                onClick={() => apagarAnotacoes(userId, anotacao.id)}
+              />
+            </div>
+          </Container>
+        ))}
+      </PageContainer>
+    </AnotacaoContainer>
   );
 }
 
@@ -123,13 +133,22 @@ const Titulo = styled.h1`
   color: ${colors.dark};
 `;
 
-const PageContainer = styled.div`
-  width: 400px;
+const AnotacaoContainer = styled.div`
+  width: 500px;
   display: flex;
   flex-direction: column;
   align-items: center;
   background-color: ${colors.light};
   border-radius: 30px;
+`;
+
+const PageContainer = styled.div`
+  height: 300px;
+  width: 400px;
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 const Container = styled.div`
@@ -161,27 +180,95 @@ const Container = styled.div`
 `;
 
 const Formulario = styled.form`
+  display: flex;
+  gap: 40px;
   margin-bottom: 20px;
 
-  input {
-    padding: 10px;
+  .wave-group {
+    position: relative;
+  }
+
+  .wave-group .input {
     font-size: 16px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    margin-right: 10px;
+    padding: 10px 10px 10px 5px;
+    display: block;
+    width: 185px;
+    border: none;
+    border-bottom: 1px solid #515151;
+    background: transparent;
+  }
+
+  .wave-group .input:focus {
+    outline: none;
+  }
+
+  .wave-group .label {
+    color: #999;
+    font-size: 18px;
+    font-weight: normal;
+    position: absolute;
+    pointer-events: none;
+    left: 5px;
+    top: 10px;
+    display: flex;
+  }
+
+  .wave-group .label-char {
+    transition: 0.2s ease all;
+    transition-delay: calc(var(--index) * 0.05s);
+  }
+
+  .wave-group .input:focus ~ label .label-char,
+  .wave-group .input:valid ~ label .label-char {
+    transform: translateY(-20px);
+    font-size: 14px;
+    color: ${colors.primary};
+  }
+
+  .wave-group .bar {
+    position: relative;
+    display: block;
+    width: 200px;
+  }
+
+  .wave-group .bar:before,
+  .wave-group .bar:after {
+    content: "";
+    height: 1px;
+    width: 0;
+    bottom: 0px;
+    position: absolute;
+    background: ${colors.primary};
+    transition: 0.2s ease all;
+    -moz-transition: 0.2s ease all;
+    -webkit-transition: 0.2s ease all;
+  }
+
+  .wave-group .bar:before {
+    left: 50%;
+  }
+
+  .wave-group .bar:after {
+    right: 50%;
+  }
+
+  .wave-group .input:focus ~ .bar:before,
+  .wave-group .input:focus ~ .bar:after {
+    width: 50%;
   }
 
   button {
     padding: 10px 20px;
     font-size: 16px;
-    background-color: #007bff;
-    color: #fff;
+    color: ${colors.dark};
+    background-color: ${colors.primary};
     border: none;
     border-radius: 4px;
     cursor: pointer;
 
     &:hover {
-      background-color: #0056b3;
+      background-color: ${colors.light};
+      border: 2px solid ${colors.primaryLight};
     }
   }
 `;

@@ -89,9 +89,15 @@ export const Botao = styled.button`
   font-size: 1em;
   padding: 0.5em;
   border: 1px solid ${colors.gray[500]};
+  background-color: ${colors.primary};
   border-radius: 5px;
   width: 80px;
   font-size: 14px;
+
+  &:hover {
+    background-color: ${colors.light};
+    border: 2px solid ${colors.primaryLight};
+  }
 `;
 
 export const Titulo = styled.h1`
@@ -102,6 +108,7 @@ export const Titulo = styled.h1`
   font-size: 31px;
   letter-spacing: 3px;
   word-spacing: 3.2px;
+  margin-bottom: 30px;
 `;
 
 export const Subtitulo = styled.p`

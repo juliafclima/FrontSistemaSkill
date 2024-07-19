@@ -263,11 +263,7 @@ export default function Home() {
         (skill: Skill) => skill.usuario.id === userID
       );
 
-      console.log("Usuarios filtrados:", userSkillsFiltered);
-
       setUserSkills(userSkillsFiltered);
-
-      console.log("UserSkills:", userSkills);
     } catch (error) {
       console.error("Erro ao alterar ordem: ", error);
     }
@@ -292,10 +288,9 @@ export default function Home() {
       <Header handleLogout={handleLogout} />
       <Container>
         <ToastContainer />
+        <Titulo>Gerenciamento de Skills</Titulo>
         <ContainerMain>
           <div>
-            <Titulo>Gerenciamento de Skills</Titulo>
-
             <ContainerFiltros>
               <SearchInput onSearch={fetchUserSkills} />
 
