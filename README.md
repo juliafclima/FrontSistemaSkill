@@ -23,7 +23,7 @@ Certifique-se de ter o seguinte instalado em sua máquina:
 1. Clone este repositório:
 
    ```bash
-   git clone https://github.com/juliafclima/FrontSistemaSkill.git
+   git clone https://github.com/juliafclima/WebSistemaSkill.git
    ```
 
 2. Execute o seguinte comando para instalar as dependências:
@@ -43,6 +43,7 @@ npm run dev
 Acesse http://localhost:3000 no seu navegador para ver o projeto em execução.
 
 - [Back-End](https://github.com/juliafclima/BackSistemaSkilll)
+- [Mobile](https://github.com/juliafclima/MobileSistemaSkill)
 
 ## Imagens
 
