@@ -8,6 +8,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Swal from "sweetalert2";
 
+import styled from "styled-components";
 import Anotacoes from "../../components/anotacoes";
 import Ordenacao from "../../components/filtros/ordenacao";
 import Header from "../../components/header";
@@ -291,96 +292,102 @@ export default function Home() {
       <Header handleLogout={handleLogout} />
       <Container>
         <ToastContainer />
-        <Titulo>Gerenciamento de Skills</Titulo>
+        <ContainerMain>
+          <div>
+            <Titulo>Gerenciamento de Skills</Titulo>
 
-        <ContainerFiltros>
-          <SearchInput onSearch={fetchUserSkills} />
+            <ContainerFiltros>
+              <SearchInput onSearch={fetchUserSkills} />
 
-          <ContainerFiltros>
-            <Ordenacao
-              ascending={sort === "asc"}
-              onClick={handleChangeOrderClick}
+              <ContainerFiltros>
+                <Ordenacao
+                  ascending={sort === "asc"}
+                  onClick={handleChangeOrderClick}
+                />
+                <Botao onClick={openAddSkillModal}>Adicionar</Botao>
+              </ContainerFiltros>
+            </ContainerFiltros>
+
+            <ModalAddSkill
+              isOpen={showAddSkillModal}
+              onClose={closeAddSkillModal}
+              onSave={handleSaveNewSkill}
             />
-            <Botao onClick={openAddSkillModal}>Adicionar</Botao>
-          </ContainerFiltros>
-        </ContainerFiltros>
 
-        <ModalAddSkill
-          isOpen={showAddSkillModal}
-          onClose={closeAddSkillModal}
-          onSave={handleSaveNewSkill}
-        />
+            {userSkills.length === 0 ? (
+              <Subtitulo>Deseja cadastrar alguma skill?</Subtitulo>
+            ) : (
+              <MainContainer>
+                {userSkills.map((skill) => (
+                  <div className="card" key={skill.id}>
+                    <ContainerLixeira>
+                      <RiDeleteBin6Line
+                        size={18}
+                        onClick={() => handleDelete(skill.id)}
+                        style={{
+                          cursor: "pointer",
+                          color: "black",
+                          marginBottom: 5,
+                        }}
+                      />
+                    </ContainerLixeira>
+                    <div className="card-image">
+                      <CardImage src={skill.skill.url} alt="" />
+                    </div>
 
-        {userSkills.length === 0 ? (
-          <Subtitulo>Deseja cadastrar alguma skill?</Subtitulo>
-        ) : (
-          <MainContainer>
-            {userSkills.map((skill) => (
-              <div className="card" key={skill.id}>
-                <ContainerLixeira>
-                  <RiDeleteBin6Line
-                    size={18}
-                    onClick={() => handleDelete(skill.id)}
-                    style={{
-                      cursor: "pointer",
-                      color: "black",
-                      marginBottom: 5,
-                    }}
-                  />
-                </ContainerLixeira>
-                <div className="card-image">
-                  <CardImage src={skill.skill.url} alt="" />
-                </div>
+                    {editingCardId === skill.id ? (
+                      <ContainerEdicao>
+                        <InputField
+                          type="number"
+                          value={novoNivel}
+                          onChange={(e) => setNovoNivel(e.target.value)}
+                          placeholder="Nº"
+                          required
+                        />
+                        <SaveButton onClick={() => handleSave(skill.id)}>
+                          <FiSave color="black" size={18} />
+                        </SaveButton>
+                      </ContainerEdicao>
+                    ) : (
+                      <div
+                        className="category"
+                        onClick={() => handleEdit(skill.id)}
+                      >
+                        <span className="name">{skill.level}</span>
+                        /10 <FaPencilAlt size={16} />
+                      </div>
+                    )}
 
-                {editingCardId === skill.id ? (
-                  <ContainerEdicao>
-                    <InputField
-                      type="number"
-                      value={novoNivel}
-                      onChange={(e) => setNovoNivel(e.target.value)}
-                      placeholder="Nº"
-                      required
-                    />
-                    <SaveButton onClick={() => handleSave(skill.id)}>
-                      <FiSave color="black" size={18} />
-                    </SaveButton>
-                  </ContainerEdicao>
-                ) : (
-                  <div
-                    className="category"
-                    onClick={() => handleEdit(skill.id)}
-                  >
-                    <span className="name">{skill.level}</span>
-                    /10 <FaPencilAlt size={16} />
+                    <div className="heading">
+                      {skill.skill.nome}
+                      <div className="author">{skill.skill.descricao}</div>
+                    </div>
                   </div>
-                )}
+                ))}
+              </MainContainer>
+            )}
 
-                <div className="heading">
-                  {skill.skill.nome}
-                  <div className="author">{skill.skill.descricao}</div>
-                </div>
-              </div>
-            ))}
-          </MainContainer>
-        )}
+            <ContainerPaginacao>
+              {page > 0 && (
+                <Botao onClick={prevPage}>
+                  <MdFirstPage />
+                </Botao>
+              )}
 
-        <ContainerPaginacao>
-          {page > 0 && (
-            <Botao onClick={prevPage}>
-              <MdFirstPage />
-            </Botao>
-          )}
+              {hasNextPage && (
+                <Botao onClick={nextPage}>
+                  <MdLastPage />
+                </Botao>
+              )}
+            </ContainerPaginacao>
+          </div>
 
-          {hasNextPage && (
-            <Botao onClick={nextPage}>
-              <MdLastPage />
-            </Botao>
-          )}
-        </ContainerPaginacao>
+          <div>
+            <Anotacoes />
+          </div>
+        </ContainerMain>
 
         <FooterEspaco />
-
-        <Anotacoes />
 
         <FooterParagrafo>
           © {new Date().getFullYear()} | Desenvolvido por Júlia Lima
@@ -389,3 +396,14 @@ export default function Home() {
     </>
   );
 }
+
+const ContainerMain = styled.div`
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 20px;
+
+  @media screen and (max-width: 1100px) {
+    flex-direction: column;
+  }
+`;

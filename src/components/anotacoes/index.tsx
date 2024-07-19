@@ -124,14 +124,12 @@ const Titulo = styled.h1`
 `;
 
 const PageContainer = styled.div`
-  min-height: 100vh;
   width: 400px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px;
-  background-color: aliceblue;
-  border-radius: 10%;
+  background-color: ${colors.light};
+  border-radius: 30px;
 `;
 
 const Container = styled.div`
