@@ -2,7 +2,7 @@
 
 ## Descrição do projeto
 
-O FrontSistemaSkill é um projeto front-end web, desenvolvido em React JS com TypeScript como parte do teste prático da empresa [Neki](https://neki.com.br/). O objetivo deste projeto é fornecer um sistema de Skills, permitindo que o usuário se cadastre, faça login e visualize suas habilidades, além de adicionar, remover ou editar seu nível por meio de uma interface visual.
+O WebSistemaSkill é um projeto front-end web, desenvolvido em React JS com TypeScript como parte do teste prático da empresa [Neki](https://neki.com.br/). O objetivo deste projeto é fornecer um sistema de Skills, permitindo que o usuário se cadastre, faça login e visualize suas habilidades, além de adicionar, remover ou editar seu nível por meio de uma interface visual.
 
 ## Funcionalidades
 - Cadastro de usuário
